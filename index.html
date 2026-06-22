@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>건희 & 서연 — 청첩장</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500&family=Noto+Sans+KR:wght@100;200;300;400;500;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { font-size: 16px; scroll-behavior: smooth; }
@@ -20,7 +20,7 @@ html { font-size: 16px; scroll-behavior: smooth; }
   --dark:      #1c1710;
   --mid:       #7a726a;
   --line:      #e0d8cc;
-  --display:   'Noto Sans KR', sans-serif;
+  --display:   'Noto Serif KR', Georgia, serif;
   --serif:     'Noto Sans KR', sans-serif;
   --script:    'Noto Sans KR', sans-serif;
   --sans:      'Noto Sans KR', sans-serif;
@@ -135,89 +135,105 @@ nav {
 ═══════════════════════════════════════ */
 #story {
   background: var(--ivory);
-  padding-bottom: 80px;
+  padding-bottom: 100px;
   overflow: hidden;
 }
 
-/* Giant title — sticks to top while in the section */
+/* Giant title — sticks to top while scrolling through chapters */
 .story-title-block {
   position: sticky;
   top: 0;
   z-index: 10;
   background: var(--ivory);
-  padding: 48px 40px 0;
+  padding: 52px 60px 0;
   pointer-events: none;
-  /* fade bottom edge so chapters emerge cleanly */
-  -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
 }
 .story-big-title {
-  font-family: var(--display);
-  font-size: clamp(72px, 14vw, 180px);
-  font-weight: 700;
-  line-height: 0.92;
+  font-family: var(--display);   /* Noto Serif KR — matches screenshot serif */
+  font-size: clamp(72px, 14vw, 190px);
+  font-weight: 400;              /* regular weight like screenshot "our story" */
+  line-height: 0.90;
   color: var(--dark);
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
 }
-/* chapters stack behind the sticky title */
+
+/* chapters sit behind the sticky title */
 .chapters { position: relative; z-index: 5; }
 
 .chapter {
-  max-width: 1100px; margin: 0 auto;
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: clamp(40px, 7vw, 100px);
+  max-width: 1080px; margin: 0 auto;
+  display: grid; grid-template-columns: 5fr 7fr; /* text narrower, card wider */
+  gap: clamp(40px, 6vw, 88px);
   align-items: center;
-  padding: 80px clamp(24px, 6vw, 80px) 120px;
-  opacity: 0; transform: translateY(40px);
+  padding: 72px clamp(24px, 6vw, 72px) 110px;
+  opacity: 0; transform: translateY(36px);
   transition: opacity 0.9s cubic-bezier(0.4,0,0.2,1), transform 0.9s cubic-bezier(0.4,0,0.2,1);
 }
 .chapter.visible { opacity: 1; transform: translateY(0); }
 
-/* even chapters: photo left, text right */
+/* alternate: odd = text left / card right, even = card left / text right */
 .chapter:nth-child(odd)  .ch-text  { order: 1; }
 .chapter:nth-child(odd)  .ch-photo { order: 2; }
 .chapter:nth-child(even) .ch-text  { order: 2; }
 .chapter:nth-child(even) .ch-photo { order: 1; }
 
-/* Chapter text */
-.ch-text { max-width: 340px; }
-.ch-num { font-family: var(--sans); font-size: 13px; font-weight: 700; color: var(--dark); margin-bottom: 14px; display: block; letter-spacing: -0.01em; }
-.ch-body { font-size: 14px; line-height: 2.0; color: var(--mid); text-align: center; font-weight: 300; }
+/* ── Chapter text (matches screenshot left column) ── */
+.ch-text { }
+.ch-num {
+  font-size: 14px; font-weight: 700; color: var(--dark);
+  margin-bottom: 14px; display: block; letter-spacing: -0.01em;
+}
+.ch-body {
+  font-size: 14px; line-height: 2.0; color: var(--mid);
+  text-align: center; font-weight: 300; max-width: 300px;
+}
 
 /* Photo column */
 .ch-photo { display: flex; justify-content: center; align-items: center; }
 
-/* Polaroid stack container */
-.p-stack {
-  position: relative;
-  width: clamp(220px, 32vw, 320px);
-  height: clamp(270px, 40vw, 390px);
-}
-/* Individual polaroid */
-.polaroid {
-  position: absolute; top: 0; left: 0; width: 100%;
+/* ── Film card (landscape, white, tilted) ── */
+.film-card {
   background: white;
-  padding: 12px 12px 52px;
-  border-radius: 3px;
-  box-shadow: 0 8px 32px rgba(28,23,16,0.13), 0 2px 8px rgba(28,23,16,0.05);
+  border-radius: 20px;
+  padding: 14px 14px 52px;
+  box-shadow:
+    0 20px 60px rgba(28,23,16,0.13),
+    0 4px 16px rgba(28,23,16,0.06);
+  width: clamp(280px, 44vw, 560px);
+  transform: rotate(-3.5deg);
+  transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s ease;
+  cursor: default;
 }
-.p-img { width: 100%; aspect-ratio: 1; background-size: cover; background-position: center; }
-.p-cap { text-align: center; margin-top: 12px; font-size: 11px; color: var(--mid); font-family: var(--sans); font-weight: 300; letter-spacing: 0.06em; line-height: 1.4; }
+.film-card:hover {
+  transform: rotate(-1deg) translateY(-8px);
+  box-shadow: 0 32px 80px rgba(28,23,16,0.16), 0 6px 20px rgba(28,23,16,0.07);
+}
+/* even chapters: tilt the other way */
+.chapter:nth-child(even) .film-card           { transform: rotate(3.5deg); }
+.chapter:nth-child(even) .film-card:hover     { transform: rotate(1deg) translateY(-8px); }
 
-/* stack z-order & rotations */
-.p-z1 { z-index: 1; transform: rotate(-8deg) translate(-6px, 12px); filter: brightness(0.93); }
-.p-z2 { z-index: 2; transform: rotate(5deg)  translate(5px,  7px);  filter: brightness(0.96); }
-.p-z3 { z-index: 3; transform: rotate(-3deg) translate(-2px, 3px);  filter: brightness(0.99); }
-.p-z4 { z-index: 4; transform: rotate(-1.5deg); }
+.film-img {
+  width: 100%; aspect-ratio: 4 / 3;
+  border-radius: 10px;
+  background-size: cover; background-position: center;
+}
+.film-cap {
+  text-align: center; margin-top: 18px;
+  font-size: 12px; color: var(--mid); font-weight: 300;
+  letter-spacing: 0.04em;
+}
 
-@media(max-width:720px) {
-  .chapter { grid-template-columns: 1fr; gap: 40px; padding-bottom: 80px; }
+@media(max-width:760px) {
+  .chapter { grid-template-columns: 1fr; gap: 36px; padding-bottom: 80px; }
   .chapter:nth-child(odd)  .ch-text,
-  .chapter:nth-child(even) .ch-text  { order: 2; }
+  .chapter:nth-child(even) .ch-text  { order: 2; text-align: center; }
   .chapter:nth-child(odd)  .ch-photo,
   .chapter:nth-child(even) .ch-photo { order: 1; }
-  .ch-text { max-width: 100%; }
+  .ch-body { max-width: 100%; }
   .story-title-block { padding: 36px 24px 0; }
+  .film-card { width: clamp(260px, 80vw, 420px); }
 }
 
 /* ── FULL-BLEED ── */
@@ -379,46 +395,34 @@ footer { background: var(--dark); color: rgba(255,255,255,0.45); text-align: cen
   </div>
 </div>
 
-<!-- ═══ STORY — Cordially style ═══ -->
+<!-- ═══ STORY ═══ -->
 <section id="story">
-  <!-- Giant sticky title -->
   <div class="story-title-block">
     <h2 class="story-big-title">우리 이야기</h2>
   </div>
 
-  <!-- Chapters appear below / behind the sticky title -->
   <div class="chapters">
 
-    <!-- Chapter 1: text left · single polaroid right -->
+    <!-- Chapter 1: text left · film card right -->
     <div class="chapter">
       <div class="ch-text">
         <span class="ch-num">chapter one: 첫 만남</span>
-        <p class="ch-body">따스한 바람이 불던 날, 우연을 가장한 필연처럼 서로의 눈에 띄었습니다. 함께 마시던 커피의 향미처럼 서로에게 은은하게 녹아들었습니다.</p>
+        <p class="ch-body">따스한 바람이 불던 날, 우연을 가장한 필연처럼 서로의 눈에 띄었습니다. 함께 마시던 커피의 향미처럼 은은하게 서로에게 녹아들었습니다.</p>
       </div>
       <div class="ch-photo">
-        <div class="p-stack">
-          <div class="polaroid p-z4">
-            <div class="p-img" style="background-image:url('https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=600')"></div>
-            <p class="p-cap">처음 만난 그 날의 기억</p>
-          </div>
+        <div class="film-card">
+          <div class="film-img" style="background-image:url('https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=800')"></div>
+          <p class="film-cap">처음 만난 그 날의 기억</p>
         </div>
       </div>
     </div>
 
-    <!-- Chapter 2: stacked polaroids left · text right -->
+    <!-- Chapter 2: film card left · text right -->
     <div class="chapter">
       <div class="ch-photo">
-        <div class="p-stack">
-          <div class="polaroid p-z1">
-            <div class="p-img" style="background-image:url('https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=600')"></div>
-          </div>
-          <div class="polaroid p-z2">
-            <div class="p-img" style="background-image:url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=600')"></div>
-          </div>
-          <div class="polaroid p-z4">
-            <div class="p-img" style="background-image:url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600')"></div>
-            <p class="p-cap">우리가 좋아했던 도시 산책</p>
-          </div>
+        <div class="film-card">
+          <div class="film-img" style="background-image:url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800')"></div>
+          <p class="film-cap">우리가 좋아했던 도시 산책</p>
         </div>
       </div>
       <div class="ch-text">
@@ -427,29 +431,21 @@ footer { background: var(--dark); color: rgba(255,255,255,0.45); text-align: cen
       </div>
     </div>
 
-    <!-- Chapter 3: text left · stacked polaroids right -->
+    <!-- Chapter 3: text left · film card right -->
     <div class="chapter">
       <div class="ch-text">
         <span class="ch-num">chapter three: 평생의 약속</span>
         <p class="ch-body">"너와 함께라면 어떤 계절도 두렵지 않아." 흩날리는 꽃가루처럼 화사한 축복 속에 평생을 함께할 약속의 장소로 귀한 분들을 모십니다.</p>
       </div>
       <div class="ch-photo">
-        <div class="p-stack">
-          <div class="polaroid p-z2">
-            <div class="p-img" style="background-image:url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=600')"></div>
-          </div>
-          <div class="polaroid p-z3">
-            <div class="p-img" style="background-image:url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=600')"></div>
-          </div>
-          <div class="polaroid p-z4">
-            <div class="p-img" style="background-image:url('https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?q=80&w=600')"></div>
-            <p class="p-cap">그 설렜던 프로포즈의 순간</p>
-          </div>
+        <div class="film-card">
+          <div class="film-img" style="background-image:url('https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?q=80&w=800')"></div>
+          <p class="film-cap">그 설렜던 프로포즈의 순간</p>
         </div>
       </div>
     </div>
 
-  </div><!-- /chapters -->
+  </div>
 </section>
 
 <!-- FULL-BLEED -->
@@ -661,17 +657,7 @@ const chapterObs = new IntersectionObserver(entries => {
 }, { threshold: 0.15 });
 document.querySelectorAll('.chapter').forEach(el => chapterObs.observe(el));
 
-/* ── Polaroid hover wobble ── */
-document.querySelectorAll('.p-stack').forEach(stack => {
-  stack.addEventListener('mouseenter', () => {
-    const front = stack.querySelector('.p-z4');
-    if (front) front.style.transform = 'rotate(2deg) translateY(-6px)';
-  });
-  stack.addEventListener('mouseleave', () => {
-    const front = stack.querySelector('.p-z4');
-    if (front) front.style.transform = '';
-  });
-});
+/* film-card hover handled by CSS */
 
 /* ── Generic reveal ── */
 const revealObs = new IntersectionObserver(entries => {
