@@ -5,26 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>건희 & 서연 — 청첩장</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Noto+Serif+KR:wght@300;400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Serif+KR:wght@300;400&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { font-size: 16px; scroll-behavior: smooth; }
 
 :root {
-  --ivory:      #faf8f4;
-  --cream:      #f4efe6;
-  --white:      #ffffff;
-  --champagne:  #c9a878;
-  --blush:      #d4a8a6;
-  --blush-light:#f0e2e1;
-  --sage:       #8fa688;
-  --sage-light: #dce8da;
-  --dark:       #241e18;
-  --mid:        #7d756d;
-  --line:       #e8e0d5;
-  --script:     'Dancing Script', cursive;
-  --serif:      'Cormorant Garamond', 'Noto Serif KR', Georgia, serif;
-  --sans:       'Inter', 'Noto Serif KR', sans-serif;
+  --ivory:     #f5f0e8;
+  --cream:     #ede8dc;
+  --white:     #ffffff;
+  --champagne: #6b5232;
+  --blush:     #d4a8a6;
+  --sage:      #8fa688;
+  --dark:      #1c1710;
+  --mid:       #7a726a;
+  --line:      #e0d8cc;
+  --display:   'Playfair Display', 'Noto Serif KR', Georgia, serif;
+  --serif:     'Cormorant Garamond', 'Noto Serif KR', Georgia, serif;
+  --script:    'Dancing Script', cursive;
+  --sans:      'Inter', 'Noto Serif KR', sans-serif;
 }
 
 body {
@@ -37,93 +36,65 @@ body {
 }
 
 /* ── CONFETTI ── */
-#confetti-canvas {
-  position: fixed; inset: 0; pointer-events: none; z-index: 9999;
-  width: 100%; height: 100%;
-}
+#confetti-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 9999; width: 100%; height: 100%; }
 
-/* ── ENVELOPE INTRO ── */
+/* ── ENVELOPE ── */
 #intro {
   position: fixed; inset: 0; z-index: 9000;
   background: var(--ivory);
   display: flex; align-items: center; justify-content: center;
-  cursor: pointer;
-  transition: opacity 1s cubic-bezier(0.4,0,0.2,1);
+  cursor: pointer; transition: opacity 1s cubic-bezier(0.4,0,0.2,1);
 }
 #intro.away { opacity: 0; pointer-events: none; }
-
 .env-scene { position: relative; width: min(400px, 86vw); text-align: center; }
-.env-glow {
-  position: absolute; inset: -80px;
-  background: radial-gradient(ellipse at center, rgba(212,168,166,0.20) 0%, transparent 68%);
-  pointer-events: none;
-}
+.env-glow { position: absolute; inset: -80px; background: radial-gradient(ellipse at center, rgba(212,168,166,0.18) 0%, transparent 68%); pointer-events: none; }
 .env-box {
   position: relative; width: 100%; aspect-ratio: 1.618 / 1;
   background: #fffdf9; border-radius: 3px;
-  box-shadow: 0 40px 80px rgba(36,30,24,0.11), 0 0 0 1px rgba(201,168,120,0.14);
+  box-shadow: 0 40px 80px rgba(36,30,24,0.11), 0 0 0 1px rgba(107,82,50,0.12);
 }
 .env-flap {
   position: absolute; top: 0; left: 0; right: 0; height: 0;
   border-left: calc(min(400px, 86vw) / 2) solid transparent;
   border-right: calc(min(400px, 86vw) / 2) solid transparent;
   border-top: calc(min(400px, 86vw) * 0.40) solid #f0e6d2;
-  transform-origin: top center;
-  transition: transform 0.9s cubic-bezier(.4,0,.2,1); z-index: 2;
+  transform-origin: top center; transition: transform 0.9s cubic-bezier(.4,0,.2,1); z-index: 2;
 }
 .env-box:hover .env-flap { transform: rotateX(160deg); }
-.env-left {
-  position: absolute; bottom: 0; left: 0; width: 0; height: 0;
-  border-bottom: calc(min(400px, 86vw) * 0.36) solid #ede5d5;
-  border-right: calc(min(400px, 86vw) / 2) solid transparent;
-}
-.env-right {
-  position: absolute; bottom: 0; right: 0; width: 0; height: 0;
-  border-bottom: calc(min(400px, 86vw) * 0.36) solid #e6dcc8;
-  border-left: calc(min(400px, 86vw) / 2) solid transparent;
-}
+.env-left { position: absolute; bottom: 0; left: 0; width: 0; height: 0; border-bottom: calc(min(400px, 86vw) * 0.36) solid #ede5d5; border-right: calc(min(400px, 86vw) / 2) solid transparent; }
+.env-right { position: absolute; bottom: 0; right: 0; width: 0; height: 0; border-bottom: calc(min(400px, 86vw) * 0.36) solid #e6dcc8; border-left: calc(min(400px, 86vw) / 2) solid transparent; }
 .env-seal {
   position: absolute; top: 52%; left: 50%; transform: translate(-50%,-50%); z-index: 3;
-  width: 50px; height: 50px;
-  background: linear-gradient(135deg, #d4a8a6, #c0827f);
+  width: 50px; height: 50px; background: linear-gradient(135deg, #d4a8a6, #c0827f);
   border-radius: 50%; display: grid; place-items: center;
   box-shadow: 0 4px 14px rgba(192,130,127,0.55), 0 0 0 3px rgba(255,255,255,0.65);
 }
 .env-seal svg { width: 22px; height: 22px; fill: white; }
 .env-label { margin-top: 30px; }
 .env-names { font-family: var(--script); font-size: 2rem; color: var(--dark); font-weight: 600; }
-.env-sub {
-  display: block; margin-top: 10px; font-size: 10px;
-  letter-spacing: 0.22em; text-transform: uppercase; color: var(--mid);
-  animation: pulse 2s ease-in-out infinite;
-}
+.env-sub { display: block; margin-top: 10px; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mid); animation: pulse 2s ease-in-out infinite; }
 @keyframes pulse { 0%,100%{opacity:.25} 50%{opacity:.85} }
 
-/* ── NAVIGATION ── */
+/* ── NAV — floating pill ── */
 nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  padding: 22px 48px; display: flex; justify-content: space-between; align-items: center;
-  background: rgba(250,248,244,0.88); backdrop-filter: blur(14px) saturate(180%);
-  border-bottom: 1px solid transparent; transition: border-color 0.35s;
+  position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+  width: min(880px, calc(100% - 32px)); z-index: 100;
+  background: white; border-radius: 100px;
+  box-shadow: 0 2px 20px rgba(28,23,16,0.10), 0 0 0 1px rgba(28,23,16,0.04);
+  padding: 10px 10px 10px 24px;
+  display: flex; justify-content: space-between; align-items: center;
 }
-nav.scrolled { border-bottom-color: var(--line); }
-.nav-brand {
-  font-family: var(--script); font-size: 22px; color: var(--dark);
-  text-decoration: none; font-weight: 600;
-}
-.nav-links { list-style: none; display: flex; gap: 28px; }
-.nav-links a {
-  font-size: 11px; letter-spacing: 0.13em; text-transform: uppercase;
-  color: var(--mid); text-decoration: none; transition: color .2s;
-}
+.nav-brand { font-family: var(--display); font-size: 17px; color: var(--dark); text-decoration: none; font-weight: 400; }
+.nav-links { list-style: none; display: flex; gap: 22px; }
+.nav-links a { font-size: 13px; color: var(--mid); text-decoration: none; transition: color .2s; font-weight: 300; }
 .nav-links a:hover { color: var(--dark); }
 .nav-rsvp {
-  font-size: 11px; letter-spacing: 0.13em; text-transform: uppercase;
-  color: var(--white); background: var(--champagne);
-  padding: 9px 22px; text-decoration: none; border-radius: 40px; transition: background .25s;
+  font-size: 13px; color: white; background: var(--champagne);
+  padding: 10px 22px; text-decoration: none; border-radius: 100px;
+  transition: opacity .2s; font-weight: 500; white-space: nowrap;
 }
-.nav-rsvp:hover { background: #b0894e; }
-@media(max-width:700px) { .nav-links { display: none; } nav { padding: 16px 22px; } }
+.nav-rsvp:hover { opacity: 0.85; }
+@media(max-width:680px) { .nav-links { display: none; } nav { padding: 8px 8px 8px 18px; } }
 
 /* ── HERO ── */
 #hero {
@@ -132,281 +103,192 @@ nav.scrolled { border-bottom-color: var(--line); }
   overflow: hidden;
 }
 .hero-photo {
-  position: absolute; inset: 0;
-  background-size: cover; background-position: center;
-  background-image:
-    linear-gradient(to bottom,
-      rgba(250,248,244,0.04) 30%,
-      rgba(250,248,244,0.82) 82%,
-      var(--ivory) 100%),
+  position: absolute; inset: 0; background-size: cover; background-position: center;
+  background-image: linear-gradient(to bottom, rgba(245,240,232,0.04) 30%, rgba(245,240,232,0.84) 82%, var(--ivory) 100%),
     url('https://images.unsplash.com/photo-1545232979-8bf34eb9757b?q=80&w=1600');
   transform: scale(1.06); transition: transform 9s ease-out;
 }
 #hero.loaded .hero-photo { transform: scale(1); }
-
 .hero-content { position: relative; z-index: 1; text-align: center; padding: 0 24px; }
-.hero-eyebrow {
-  display: block; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase;
-  color: var(--champagne); margin-bottom: 18px;
-}
-.hero-names {
-  font-family: var(--script); font-size: clamp(66px, 14vw, 126px);
-  font-weight: 700; color: var(--dark); line-height: 1.05;
-}
-.hero-amp {
-  font-family: var(--serif); font-style: italic; font-weight: 300;
-  font-size: 0.42em; color: var(--champagne);
-  display: block; line-height: 1.6;
-}
-.hero-meta {
-  margin-top: 22px; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
-  color: var(--mid); display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap;
-}
+.hero-eyebrow { display: block; font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--champagne); margin-bottom: 18px; }
+.hero-names { font-family: var(--script); font-size: clamp(66px, 14vw, 126px); font-weight: 700; color: var(--dark); line-height: 1.05; }
+.hero-amp { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: 0.42em; color: var(--champagne); display: block; line-height: 1.6; }
+.hero-meta { margin-top: 22px; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mid); display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
 .hero-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--champagne); flex-shrink: 0; }
-
-.hero-scroll {
-  position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
-  display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 1;
-}
-.hero-scroll-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mid); }
+.hero-scroll { position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 6px; z-index: 1; }
+.hero-scroll-label { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mid); }
 .scroll-bar { width: 1px; height: 44px; background: linear-gradient(to bottom, var(--champagne), transparent); animation: scrollbar 2s ease-in-out infinite; }
-@keyframes scrollbar { 0%{transform:scaleY(0);transform-origin:top;opacity:1} 50%{transform:scaleY(1);transform-origin:top;opacity:1} 51%{transform:scaleY(1);transform-origin:bottom;opacity:1} 100%{transform:scaleY(0);transform-origin:bottom;opacity:0} }
-
-/* ── BOTANICAL DIVIDER ── */
-.botanical {
-  display: flex; align-items: center; justify-content: center;
-  padding: 52px 20px; gap: 18px;
-}
-.botanical .b-line { flex: 1; max-width: 200px; height: 1px; }
-.botanical .b-line-l { background: linear-gradient(to right, transparent, var(--line)); }
-.botanical .b-line-r { background: linear-gradient(to left, transparent, var(--line)); }
+@keyframes scrollbar { 0%{transform:scaleY(0);transform-origin:top;opacity:1} 50%{transform:scaleY(1);transform-origin:top;opacity:1} 51%{transform:scaleY(1);transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom;opacity:0} }
 
 /* ── INVITE TEXT ── */
 #invite { background: var(--white); padding: 72px 20px 80px; text-align: center; }
-.invite-quote {
-  max-width: 620px; margin: 0 auto;
-  font-family: var(--serif); font-size: clamp(17px, 3vw, 24px); font-style: italic;
-  color: #575048; line-height: 2.1; font-weight: 300;
-}
+.botanical { display: flex; align-items: center; justify-content: center; padding: 52px 20px; gap: 18px; }
+.b-line { flex: 1; max-width: 200px; height: 1px; }
+.b-line-l { background: linear-gradient(to right, transparent, var(--line)); }
+.b-line-r { background: linear-gradient(to left, transparent, var(--line)); }
+.invite-quote { max-width: 620px; margin: 0 auto; font-family: var(--serif); font-size: clamp(17px, 3vw, 24px); font-style: italic; color: #575048; line-height: 2.1; font-weight: 300; }
 .invite-quote strong { color: var(--champagne); font-weight: 400; font-style: normal; }
 .invite-script { margin-top: 28px; font-family: var(--script); font-size: 2rem; color: var(--dark); }
 
-/* ── STORY ── */
-#story { padding: 100px 0 20px; background: var(--ivory); }
-.section-eye {
-  display: block; text-align: center; font-size: 10px;
-  letter-spacing: 0.24em; text-transform: uppercase; color: var(--champagne); margin-bottom: 10px;
-}
-.section-title {
-  text-align: center; font-family: var(--serif);
-  font-size: clamp(28px, 5vw, 44px); font-style: italic; font-weight: 300;
-  margin-bottom: 80px; color: var(--dark);
+/* ═══════════════════════════════════════
+   STORY — Cordially style
+═══════════════════════════════════════ */
+#story {
+  background: var(--ivory);
+  padding-bottom: 80px;
+  overflow: hidden;
 }
 
-.story-wrap { max-width: 1020px; margin: 0 auto; padding: 0 24px; }
+/* Giant title — sticks to top while in the section */
+.story-title-block {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--ivory);
+  padding: 48px 40px 0;
+  pointer-events: none;
+  /* fade bottom edge so chapters emerge cleanly */
+  -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+}
+.story-big-title {
+  font-family: var(--display);
+  font-size: clamp(80px, 16vw, 200px);
+  font-weight: 400;
+  line-height: 0.88;
+  color: var(--dark);
+  letter-spacing: -0.02em;
+}
+/* chapters stack behind the sticky title */
+.chapters { position: relative; z-index: 5; }
 
-.story-card {
-  position: sticky; top: 96px;
-  background: var(--white); border-radius: 22px;
-  margin-bottom: 160px; overflow: hidden;
-  box-shadow: 0 30px 80px rgba(36,30,24,0.07);
-  display: grid; grid-template-columns: 1.15fr 1fr;
-  transform-origin: center top;
-  transition: transform 0.18s linear, opacity 0.18s linear, filter 0.18s linear;
+.chapter {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 7vw, 100px);
+  align-items: center;
+  padding: 80px clamp(24px, 6vw, 80px) 120px;
+  opacity: 0; transform: translateY(40px);
+  transition: opacity 0.9s cubic-bezier(0.4,0,0.2,1), transform 0.9s cubic-bezier(0.4,0,0.2,1);
 }
-.story-card:nth-child(even) { grid-template-columns: 1fr 1.15fr; }
-.story-card:nth-child(even) .s-img  { order: 2; }
-.story-card:nth-child(even) .s-body { order: 1; }
+.chapter.visible { opacity: 1; transform: translateY(0); }
 
-.s-img {
-  position: relative; min-height: 420px; overflow: hidden;
-}
-.s-img-main {
-  position: absolute; inset: 0;
-  background-size: cover; background-position: center;
-  transition: transform 0.6s ease;
-}
-.story-card:hover .s-img-main { transform: scale(1.04); }
-.s-img-pip {
-  position: absolute; bottom: 18px; right: 18px;
-  width: 88px; height: 118px; border-radius: 9px;
-  background-size: cover; background-position: center;
-  border: 3px solid white; box-shadow: 0 8px 22px rgba(0,0,0,0.18);
-}
+/* even chapters: photo left, text right */
+.chapter:nth-child(odd)  .ch-text  { order: 1; }
+.chapter:nth-child(odd)  .ch-photo { order: 2; }
+.chapter:nth-child(even) .ch-text  { order: 2; }
+.chapter:nth-child(even) .ch-photo { order: 1; }
 
-.s-body {
-  padding: 56px 48px; display: flex; flex-direction: column; justify-content: center;
-}
-.s-chapter { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--champagne); margin-bottom: 14px; }
-.s-body h3 {
-  font-family: var(--serif); font-size: 28px; font-style: italic; font-weight: 300;
-  margin-bottom: 18px; color: var(--dark); line-height: 1.35;
-}
-.s-rule { width: 36px; height: 1px; background: var(--champagne); margin-bottom: 18px; }
-.s-body p { font-size: 14px; line-height: 2.0; color: var(--mid); word-break: keep-all; }
+/* Chapter text */
+.ch-text { max-width: 340px; }
+.ch-num { font-family: var(--sans); font-size: 13px; font-weight: 700; color: var(--dark); margin-bottom: 14px; display: block; letter-spacing: 0; }
+.ch-body { font-size: 15px; line-height: 1.9; color: var(--mid); text-align: center; }
 
-@media(max-width:780px) {
-  .story-card, .story-card:nth-child(even) { grid-template-columns: 1fr; }
-  .story-card:nth-child(even) .s-img  { order: 0; }
-  .story-card:nth-child(even) .s-body { order: 1; }
-  .s-img { min-height: 260px; }
-  .s-body { padding: 32px 24px; }
-  .s-body h3 { font-size: 22px; }
-  .story-card { margin-bottom: 100px; top: 76px; }
+/* Photo column */
+.ch-photo { display: flex; justify-content: center; align-items: center; }
+
+/* Polaroid stack container */
+.p-stack {
+  position: relative;
+  width: clamp(220px, 32vw, 320px);
+  height: clamp(270px, 40vw, 390px);
+}
+/* Individual polaroid */
+.polaroid {
+  position: absolute; top: 0; left: 0; width: 100%;
+  background: white;
+  padding: 12px 12px 52px;
+  border-radius: 3px;
+  box-shadow: 0 8px 32px rgba(28,23,16,0.13), 0 2px 8px rgba(28,23,16,0.05);
+}
+.p-img { width: 100%; aspect-ratio: 1; background-size: cover; background-position: center; }
+.p-cap { text-align: center; margin-top: 12px; font-size: 12px; color: var(--mid); font-family: var(--serif); font-style: italic; line-height: 1.4; }
+
+/* stack z-order & rotations */
+.p-z1 { z-index: 1; transform: rotate(-8deg) translate(-6px, 12px); filter: brightness(0.93); }
+.p-z2 { z-index: 2; transform: rotate(5deg)  translate(5px,  7px);  filter: brightness(0.96); }
+.p-z3 { z-index: 3; transform: rotate(-3deg) translate(-2px, 3px);  filter: brightness(0.99); }
+.p-z4 { z-index: 4; transform: rotate(-1.5deg); }
+
+@media(max-width:720px) {
+  .chapter { grid-template-columns: 1fr; gap: 40px; padding-bottom: 80px; }
+  .chapter:nth-child(odd)  .ch-text,
+  .chapter:nth-child(even) .ch-text  { order: 2; }
+  .chapter:nth-child(odd)  .ch-photo,
+  .chapter:nth-child(even) .ch-photo { order: 1; }
+  .ch-text { max-width: 100%; }
+  .story-title-block { padding: 36px 24px 0; }
 }
 
 /* ── FULL-BLEED ── */
-#fullbleed {
-  height: min(66vh, 580px); position: relative; overflow: hidden;
-}
-.fb-img {
-  position: absolute; inset: 0;
-  background-image: url('https://images.unsplash.com/photo-1519225495810-7512c696505a?q=80&w=1600');
-  background-size: cover; background-position: center;
-  background-attachment: fixed;
-}
-.fb-overlay {
-  position: absolute; inset: 0;
-  background: rgba(36,30,24,0.28);
-  display: flex; align-items: center; justify-content: center;
-}
-.fb-text {
-  font-family: var(--script); font-size: clamp(32px, 6vw, 64px); font-weight: 600;
-  color: white; text-align: center; text-shadow: 0 4px 30px rgba(0,0,0,0.35);
-  line-height: 1.45;
-}
+#fullbleed { height: min(66vh, 580px); position: relative; overflow: hidden; }
+.fb-img { position: absolute; inset: 0; background-image: url('https://images.unsplash.com/photo-1519225495810-7512c696505a?q=80&w=1600'); background-size: cover; background-position: center; background-attachment: fixed; }
+.fb-overlay { position: absolute; inset: 0; background: rgba(28,23,16,0.28); display: flex; align-items: center; justify-content: center; }
+.fb-text { font-family: var(--script); font-size: clamp(32px, 6vw, 64px); font-weight: 600; color: white; text-align: center; text-shadow: 0 4px 30px rgba(0,0,0,0.35); line-height: 1.45; }
 
 /* ── GALLERY ── */
 #gallery { padding: 100px 24px; background: var(--ivory); }
-.gallery-grid {
-  max-width: 1100px; margin: 0 auto;
-  display: grid; grid-template-columns: repeat(4,1fr); gap: 10px;
-}
-.g-item {
-  background-size: cover; background-position: center;
-  border-radius: 10px; aspect-ratio: 3/4;
-  transition: transform 0.32s ease, box-shadow 0.32s ease;
-  cursor: pointer;
-}
-.g-item:hover { transform: translateY(-5px); box-shadow: 0 20px 44px rgba(36,30,24,0.14); }
+.gallery-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
+.g-item { background-size: cover; background-position: center; border-radius: 10px; aspect-ratio: 3/4; transition: transform 0.32s ease, box-shadow 0.32s ease; cursor: pointer; }
+.g-item:hover { transform: translateY(-5px); box-shadow: 0 20px 44px rgba(28,23,16,0.14); }
 .g-item.wide { grid-column: span 2; aspect-ratio: 16/10; }
-@media(max-width:760px) {
-  .gallery-grid { grid-template-columns: repeat(2,1fr); }
-  .g-item.wide { grid-column: span 2; aspect-ratio: 16/9; }
-}
+@media(max-width:760px) { .gallery-grid { grid-template-columns: repeat(2,1fr); } .g-item.wide { grid-column: span 2; aspect-ratio: 16/9; } }
 
 /* ── VENUE ── */
 #join { background: var(--white); padding: 100px 20px; text-align: center; }
-.join-date {
-  font-family: var(--serif); font-size: clamp(26px, 5vw, 40px);
-  font-style: italic; font-weight: 300; margin-bottom: 56px; color: var(--dark);
-}
-.countdown-box {
-  display: flex; justify-content: center; align-items: flex-start;
-  gap: clamp(16px, 4vw, 52px); margin-bottom: 60px;
-}
+.join-date { font-family: var(--serif); font-size: clamp(26px, 5vw, 40px); font-style: italic; font-weight: 300; margin-bottom: 56px; color: var(--dark); }
+.countdown-box { display: flex; justify-content: center; align-items: flex-start; gap: clamp(16px, 4vw, 52px); margin-bottom: 60px; }
 .cd-unit { text-align: center; }
-.cd-num {
-  font-family: var(--serif); font-size: clamp(44px, 8vw, 78px);
-  color: var(--dark); display: block; line-height: 1; font-weight: 300;
-}
+.cd-num { font-family: var(--serif); font-size: clamp(44px, 8vw, 78px); color: var(--dark); display: block; line-height: 1; font-weight: 300; }
 .cd-label { display: block; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid); margin-top: 8px; }
 .cd-sep { font-family: var(--serif); font-size: 40px; color: var(--line); line-height: 1.1; margin-top: 4px; }
-
-.venue-card {
-  max-width: 520px; margin: 0 auto;
-  background: var(--ivory); padding: 40px;
-  border-radius: 18px; border: 1px solid var(--line);
-}
-.venue-name {
-  font-family: var(--serif); font-size: 24px; font-style: italic; font-weight: 400;
-  margin-bottom: 10px; color: var(--dark);
-}
+.venue-card { max-width: 520px; margin: 0 auto; background: var(--ivory); padding: 40px; border-radius: 18px; border: 1px solid var(--line); }
+.venue-name { font-family: var(--serif); font-size: 24px; font-style: italic; font-weight: 400; margin-bottom: 10px; color: var(--dark); }
 .venue-addr { color: var(--mid); font-size: 14px; line-height: 1.8; margin-bottom: 24px; }
-.map-btn {
-  display: inline-flex; align-items: center; gap: 7px;
-  padding: 11px 28px; border: 1px solid var(--dark); color: var(--dark);
-  text-decoration: none; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
-  border-radius: 40px; transition: all 0.28s;
-}
+.map-btn { display: inline-flex; align-items: center; gap: 7px; padding: 11px 28px; border: 1px solid var(--dark); color: var(--dark); text-decoration: none; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; border-radius: 40px; transition: all 0.28s; }
 .map-btn:hover { background: var(--dark); color: var(--white); }
 
 /* ── DETAILS ── */
 #details { padding: 100px 20px; background: var(--ivory); }
-.details-grid {
-  max-width: 820px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
-}
-.detail-card {
-  background: var(--white); padding: 36px; border-radius: 18px;
-  border: 1px solid var(--line);
-}
+.details-grid { max-width: 820px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.detail-card { background: var(--white); padding: 36px; border-radius: 18px; border: 1px solid var(--line); }
 .detail-icon { width: 34px; height: 34px; margin-bottom: 20px; }
-.detail-card h4 {
-  font-family: var(--serif); font-size: 20px; font-style: italic; font-weight: 400;
-  margin-bottom: 14px; color: var(--dark);
-}
+.detail-card h4 { font-family: var(--serif); font-size: 20px; font-style: italic; font-weight: 400; margin-bottom: 14px; color: var(--dark); }
 .detail-card p { font-size: 13px; line-height: 2.0; color: var(--mid); white-space: pre-line; }
 @media(max-width:580px) { .details-grid { grid-template-columns: 1fr; } }
 
 /* ── RSVP ── */
 #rsvp { background: var(--cream); padding: 100px 20px; }
 .rsvp-inner { max-width: 520px; margin: 0 auto; }
-.rsvp-card {
-  background: var(--white); padding: 48px;
-  border-radius: 22px; box-shadow: 0 20px 60px rgba(36,30,24,0.07);
-  margin-top: 50px;
-}
+.rsvp-card { background: var(--white); padding: 48px; border-radius: 22px; box-shadow: 0 20px 60px rgba(28,23,16,0.07); margin-top: 50px; }
 .form-group { margin-bottom: 22px; }
 .form-label { display: block; font-size: 11px; letter-spacing: 0.11em; text-transform: uppercase; color: var(--mid); margin-bottom: 8px; }
-.form-control {
-  width: 100%; padding: 13px 16px;
-  border: 1px solid var(--line); background: var(--ivory);
-  border-radius: 9px; font-size: 14px; outline: none;
-  font-family: var(--sans); color: var(--dark);
-  transition: border-color 0.2s, background 0.2s;
-}
+.form-control { width: 100%; padding: 13px 16px; border: 1px solid var(--line); background: var(--ivory); border-radius: 9px; font-size: 14px; outline: none; font-family: var(--sans); color: var(--dark); transition: border-color 0.2s, background 0.2s; }
 .form-control:focus { border-color: var(--champagne); background: var(--white); }
-.submit-btn {
-  width: 100%; padding: 15px; background: var(--dark); color: white;
-  border: none; border-radius: 40px; font-size: 11px;
-  letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer;
-  transition: background 0.3s, transform 0.15s; margin-top: 6px;
-  font-family: var(--sans);
-}
+.submit-btn { width: 100%; padding: 15px; background: var(--dark); color: white; border: none; border-radius: 40px; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer; transition: background 0.3s, transform 0.15s; margin-top: 6px; font-family: var(--sans); }
 .submit-btn:hover { background: var(--champagne); }
 .submit-btn:active { transform: scale(0.98); }
 
 /* ── FOOTER ── */
-footer {
-  background: var(--dark); color: rgba(255,255,255,0.45);
-  text-align: center; padding: 72px 20px;
-}
+footer { background: var(--dark); color: rgba(255,255,255,0.45); text-align: center; padding: 72px 20px; }
 .footer-script { font-family: var(--script); font-size: 2.6rem; color: rgba(255,255,255,0.88); display: block; margin-bottom: 12px; }
 .footer-date-txt { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
 .footer-rule { width: 36px; height: 1px; background: rgba(255,255,255,0.18); margin: 24px auto; }
-.footer-copy { font-size: 11px; letter-spacing: 0.05em; }
+.footer-copy { font-size: 11px; }
 .footer-floral { margin-bottom: 28px; opacity: 0.4; }
 
-/* ── ADMIN PANEL ── */
-#admin-panel {
-  position: fixed; top: 0; right: -420px; width: 400px; height: 100vh;
-  background: var(--white); box-shadow: -10px 0 50px rgba(0,0,0,0.13);
-  z-index: 10000; transition: right 0.4s cubic-bezier(0.4,0,0.2,1);
-  padding: 40px 28px; overflow-y: auto; color: var(--dark); text-align: left;
-}
+/* ── SECTION SHARED ── */
+.section-eye { display: block; text-align: center; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--champagne); margin-bottom: 10px; }
+.section-title { text-align: center; font-family: var(--serif); font-size: clamp(28px, 5vw, 44px); font-style: italic; font-weight: 300; margin-bottom: 80px; color: var(--dark); }
+
+/* ── ADMIN ── */
+#admin-panel { position: fixed; top: 0; right: -420px; width: 400px; height: 100vh; background: var(--white); box-shadow: -10px 0 50px rgba(0,0,0,0.13); z-index: 10000; transition: right 0.4s cubic-bezier(0.4,0,0.2,1); padding: 40px 28px; overflow-y: auto; color: var(--dark); text-align: left; }
 #admin-panel.open { right: 0; }
 #admin-panel h3 { font-family: var(--serif); font-size: 22px; font-style: italic; margin-bottom: 26px; }
 .admin-close { position: absolute; top: 24px; right: 24px; background: none; border: none; font-size: 22px; cursor: pointer; color: var(--mid); }
-.admin-toggle {
-  position: fixed; bottom: 24px; right: 24px; z-index: 999;
-  width: 42px; height: 42px; background: var(--white); border-radius: 50%;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.10); display: grid; place-items: center;
-  cursor: pointer; font-size: 15px; border: 1px solid var(--line);
-  opacity: 0.2; transition: opacity 0.3s;
-}
+.admin-toggle { position: fixed; bottom: 24px; right: 24px; z-index: 999; width: 42px; height: 42px; background: var(--white); border-radius: 50%; box-shadow: 0 4px 16px rgba(0,0,0,0.10); display: grid; place-items: center; cursor: pointer; font-size: 15px; border: 1px solid var(--line); opacity: 0.2; transition: opacity 0.3s; }
 .admin-toggle:hover { opacity: 1; }
 
-/* ── REVEAL ── */
 [data-reveal] { opacity: 0; transform: translateY(22px); transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1), transform 0.8s cubic-bezier(0.4,0,0.2,1); }
 [data-reveal].on { opacity: 1; transform: translateY(0); }
 </style>
@@ -420,38 +302,17 @@ footer {
 <div id="admin-panel">
   <button class="admin-close" onclick="toggleAdmin()">×</button>
   <h3>초대장 정보 관리</h3>
-  <div class="form-group">
-    <label class="form-label">신랑 이름</label>
-    <input type="text" id="adm-groom" class="form-control" value="건희">
-  </div>
-  <div class="form-group">
-    <label class="form-label">신부 이름</label>
-    <input type="text" id="adm-bride" class="form-control" value="서연">
-  </div>
-  <div class="form-group">
-    <label class="form-label">결혼식 날짜</label>
-    <input type="date" id="adm-date" class="form-control" value="2026-10-17">
-  </div>
-  <div class="form-group">
-    <label class="form-label">결혼식 시간</label>
-    <input type="time" id="adm-time" class="form-control" value="14:00">
-  </div>
-  <div class="form-group">
-    <label class="form-label">웨딩홀 명칭</label>
-    <input type="text" id="adm-venue" class="form-control" value="더 파티하우스 그랜드볼룸">
-  </div>
-  <div class="form-group">
-    <label class="form-label">웨딩홀 주소</label>
-    <input type="text" id="adm-addr" class="form-control" value="서울특별시 강남구 테헤란로 123, 지하 1층">
-  </div>
-  <div class="form-group">
-    <label class="form-label">메인 이미지</label>
-    <input type="file" id="adm-file" class="form-control" accept="image/*" onchange="loadHeroImg(event)">
-  </div>
+  <div class="form-group"><label class="form-label">신랑 이름</label><input type="text" id="adm-groom" class="form-control" value="건희"></div>
+  <div class="form-group"><label class="form-label">신부 이름</label><input type="text" id="adm-bride" class="form-control" value="서연"></div>
+  <div class="form-group"><label class="form-label">결혼식 날짜</label><input type="date" id="adm-date" class="form-control" value="2026-10-17"></div>
+  <div class="form-group"><label class="form-label">결혼식 시간</label><input type="time" id="adm-time" class="form-control" value="14:00"></div>
+  <div class="form-group"><label class="form-label">웨딩홀 명칭</label><input type="text" id="adm-venue" class="form-control" value="더 파티하우스 그랜드볼룸"></div>
+  <div class="form-group"><label class="form-label">웨딩홀 주소</label><input type="text" id="adm-addr" class="form-control" value="서울특별시 강남구 테헤란로 123, 지하 1층"></div>
+  <div class="form-group"><label class="form-label">메인 이미지</label><input type="file" id="adm-file" class="form-control" accept="image/*" onchange="loadHeroImg(event)"></div>
   <button class="submit-btn" style="margin-top:12px;" onclick="saveAdmin()">적용하기</button>
 </div>
 
-<!-- ENVELOPE INTRO -->
+<!-- ENVELOPE -->
 <div id="intro" role="button" aria-label="클릭하여 초대장 열기">
   <div class="env-scene">
     <div class="env-glow"></div>
@@ -459,9 +320,7 @@ footer {
       <div class="env-flap"></div>
       <div class="env-left"></div>
       <div class="env-right"></div>
-      <div class="env-seal">
-        <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-      </div>
+      <div class="env-seal"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
     </div>
     <div class="env-label">
       <div class="env-names dynamic-names">건희 & 서연</div>
@@ -479,7 +338,7 @@ footer {
     <li><a href="#join">오시는 길</a></li>
     <li><a href="#details">안내사항</a></li>
   </ul>
-  <a href="#rsvp" class="nav-rsvp">참석 알림</a>
+  <a href="#rsvp" class="nav-rsvp">참석 알림 제출</a>
 </nav>
 
 <!-- HERO -->
@@ -487,32 +346,24 @@ footer {
   <div class="hero-photo" id="hero-bg"></div>
   <div class="hero-content">
     <span class="hero-eyebrow">Happy Wedding Day</span>
-    <h1 class="hero-names" id="hero-names">
-      건희<span class="hero-amp">&amp;</span>서연
-    </h1>
+    <h1 class="hero-names" id="hero-names">건희<span class="hero-amp">&amp;</span>서연</h1>
     <div class="hero-meta" id="hero-meta">
-      <span>2026. 10. 17</span>
-      <span class="hero-dot"></span>
-      <span>토요일 오후 2시</span>
-      <span class="hero-dot"></span>
+      <span>2026. 10. 17</span><span class="hero-dot"></span>
+      <span>토요일 오후 2시</span><span class="hero-dot"></span>
       <span>더 파티하우스</span>
     </div>
   </div>
   <div class="hero-scroll">
-    <span class="hero-scroll-label">Scroll</span>
+    <span class="hero-scroll-label">Scroll to explore</span>
     <div class="scroll-bar"></div>
   </div>
 </section>
 
-<!-- INVITATION TEXT -->
+<!-- INVITE TEXT -->
 <div id="invite" data-reveal>
   <div class="botanical">
     <div class="b-line b-line-l"></div>
-    <svg width="64" height="44" viewBox="0 0 64 44" fill="none">
-      <path d="M32 22 Q22 5 5 12 Q17 14 22 22 Q17 30 5 34 Q22 40 32 22Z" fill="#8fa688" opacity="0.32"/>
-      <path d="M32 22 Q42 5 59 12 Q47 14 42 22 Q47 30 59 34 Q42 40 32 22Z" fill="#8fa688" opacity="0.32"/>
-      <circle cx="32" cy="22" r="3.5" fill="#c9a878" opacity="0.55"/>
-    </svg>
+    <svg width="64" height="44" viewBox="0 0 64 44" fill="none"><path d="M32 22 Q22 5 5 12 Q17 14 22 22 Q17 30 5 34 Q22 40 32 22Z" fill="#8fa688" opacity="0.32"/><path d="M32 22 Q42 5 59 12 Q47 14 42 22 Q47 30 59 34 Q42 40 32 22Z" fill="#8fa688" opacity="0.32"/><circle cx="32" cy="22" r="3.5" fill="#6b5232" opacity="0.55"/></svg>
     <div class="b-line b-line-r"></div>
   </div>
   <p class="invite-quote">
@@ -521,69 +372,90 @@ footer {
     <strong>이 아름다운 시작의 순간에 축복으로 함께해주세요.</strong>
   </p>
   <div class="invite-script dynamic-names">건희 & 서연</div>
-  <div class="botanical" style="padding-bottom: 0">
+  <div class="botanical" style="padding-bottom:0">
     <div class="b-line b-line-l"></div>
-    <svg width="64" height="44" viewBox="0 0 64 44" fill="none">
-      <path d="M32 22 Q22 5 5 12 Q17 14 22 22 Q17 30 5 34 Q22 40 32 22Z" fill="#8fa688" opacity="0.32"/>
-      <path d="M32 22 Q42 5 59 12 Q47 14 42 22 Q47 30 59 34 Q42 40 32 22Z" fill="#8fa688" opacity="0.32"/>
-      <circle cx="32" cy="22" r="3.5" fill="#c9a878" opacity="0.55"/>
-    </svg>
+    <svg width="64" height="44" viewBox="0 0 64 44" fill="none"><path d="M32 22 Q22 5 5 12 Q17 14 22 22 Q17 30 5 34 Q22 40 32 22Z" fill="#8fa688" opacity="0.32"/><path d="M32 22 Q42 5 59 12 Q47 14 42 22 Q47 30 59 34 Q42 40 32 22Z" fill="#8fa688" opacity="0.32"/><circle cx="32" cy="22" r="3.5" fill="#6b5232" opacity="0.55"/></svg>
     <div class="b-line b-line-r"></div>
   </div>
 </div>
 
-<!-- STORY -->
+<!-- ═══ STORY — Cordially style ═══ -->
 <section id="story">
-  <span class="section-eye">Our Story</span>
-  <h2 class="section-title">우리의 사랑 이야기</h2>
-  <div class="story-wrap">
-    <div class="story-card">
-      <div class="s-img">
-        <div class="s-img-main" style="background-image:url('https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=800')"></div>
-        <div class="s-img-pip" style="background-image:url('https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=400')"></div>
-      </div>
-      <div class="s-body">
-        <span class="s-chapter">Chapter 01</span>
-        <h3>첫 만남</h3>
-        <div class="s-rule"></div>
-        <p>따스한 바람이 불던 날, 우연을 가장한 필연처럼 서로의 눈에 띄었습니다. 함께 마시던 커피의 향미처럼 서로에게 은은하게 녹아들었습니다.</p>
-      </div>
-    </div>
-
-    <div class="story-card">
-      <div class="s-img">
-        <div class="s-img-main" style="background-image:url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800')"></div>
-        <div class="s-img-pip" style="background-image:url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=400')"></div>
-      </div>
-      <div class="s-body">
-        <span class="s-chapter">Chapter 02</span>
-        <h3>일상의 축제</h3>
-        <div class="s-rule"></div>
-        <p>야외 테라스에서 나누던 시시콜콜한 이야기들, 수많은 풍경들을 나란히 걸으며 맞잡은 손의 온기가 모여 우리의 매일은 반짝이는 축제가 되었습니다.</p>
-      </div>
-    </div>
-
-    <div class="story-card">
-      <div class="s-img">
-        <div class="s-img-main" style="background-image:url('https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?q=80&w=800')"></div>
-        <div class="s-img-pip" style="background-image:url('https://images.unsplash.com/photo-1532712938310-34cb3982ef74?q=80&w=400')"></div>
-      </div>
-      <div class="s-body">
-        <span class="s-chapter">Chapter 03</span>
-        <h3>평생의 약속</h3>
-        <div class="s-rule"></div>
-        <p>"너와 함께라면 어떤 계절도 두렵지 않아."<br>흩날리는 꽃가루처럼 화사한 축복 속에 평생을 함께할 약속의 장소로 귀한 분들을 모십니다.</p>
-      </div>
-    </div>
+  <!-- Giant sticky title -->
+  <div class="story-title-block">
+    <h2 class="story-big-title">우리 이야기</h2>
   </div>
+
+  <!-- Chapters appear below / behind the sticky title -->
+  <div class="chapters">
+
+    <!-- Chapter 1: text left · single polaroid right -->
+    <div class="chapter">
+      <div class="ch-text">
+        <span class="ch-num">chapter one: 첫 만남</span>
+        <p class="ch-body">따스한 바람이 불던 날, 우연을 가장한 필연처럼 서로의 눈에 띄었습니다. 함께 마시던 커피의 향미처럼 서로에게 은은하게 녹아들었습니다.</p>
+      </div>
+      <div class="ch-photo">
+        <div class="p-stack">
+          <div class="polaroid p-z4">
+            <div class="p-img" style="background-image:url('https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=600')"></div>
+            <p class="p-cap">처음 만난 그 날의 기억</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 2: stacked polaroids left · text right -->
+    <div class="chapter">
+      <div class="ch-photo">
+        <div class="p-stack">
+          <div class="polaroid p-z1">
+            <div class="p-img" style="background-image:url('https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=600')"></div>
+          </div>
+          <div class="polaroid p-z2">
+            <div class="p-img" style="background-image:url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=600')"></div>
+          </div>
+          <div class="polaroid p-z4">
+            <div class="p-img" style="background-image:url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600')"></div>
+            <p class="p-cap">우리가 좋아했던 도시 산책</p>
+          </div>
+        </div>
+      </div>
+      <div class="ch-text">
+        <span class="ch-num">chapter two: 일상의 축제</span>
+        <p class="ch-body">야외 테라스에서 나누던 시시콜콜한 이야기들, 수많은 풍경들을 나란히 걸으며 맞잡은 손의 온기가 모여 우리의 매일은 반짝이는 축제가 되었습니다.</p>
+      </div>
+    </div>
+
+    <!-- Chapter 3: text left · stacked polaroids right -->
+    <div class="chapter">
+      <div class="ch-text">
+        <span class="ch-num">chapter three: 평생의 약속</span>
+        <p class="ch-body">"너와 함께라면 어떤 계절도 두렵지 않아." 흩날리는 꽃가루처럼 화사한 축복 속에 평생을 함께할 약속의 장소로 귀한 분들을 모십니다.</p>
+      </div>
+      <div class="ch-photo">
+        <div class="p-stack">
+          <div class="polaroid p-z2">
+            <div class="p-img" style="background-image:url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=600')"></div>
+          </div>
+          <div class="polaroid p-z3">
+            <div class="p-img" style="background-image:url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=600')"></div>
+          </div>
+          <div class="polaroid p-z4">
+            <div class="p-img" style="background-image:url('https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?q=80&w=600')"></div>
+            <p class="p-cap">그 설렜던 프로포즈의 순간</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /chapters -->
 </section>
 
-<!-- FULL-BLEED PHOTO -->
+<!-- FULL-BLEED -->
 <div id="fullbleed">
   <div class="fb-img"></div>
-  <div class="fb-overlay">
-    <div class="fb-text">"함께라면<br>매일이 봄이야"</div>
-  </div>
+  <div class="fb-overlay"><div class="fb-text">"함께라면<br>매일이 봄이야"</div></div>
 </div>
 
 <!-- GALLERY -->
@@ -617,9 +489,7 @@ footer {
     <p class="venue-name" id="venue-name">더 파티하우스 그랜드볼룸</p>
     <p class="venue-addr" id="venue-addr">서울특별시 강남구 테헤란로 123, 지하 1층</p>
     <a href="https://maps.google.com" target="_blank" rel="noopener" class="map-btn">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
-      </svg>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
       지도 보기
     </a>
   </div>
@@ -631,19 +501,13 @@ footer {
   <h2 class="section-title" data-reveal>안내사항</h2>
   <div class="details-grid">
     <div class="detail-card" data-reveal>
-      <svg class="detail-icon" viewBox="0 0 34 34" fill="none">
-        <circle cx="17" cy="17" r="16" stroke="#c9a878" stroke-width="1"/>
-        <path d="M17 9v9l6 4" stroke="#c9a878" stroke-width="1.5" stroke-linecap="round"/>
-      </svg>
+      <svg class="detail-icon" viewBox="0 0 34 34" fill="none"><circle cx="17" cy="17" r="16" stroke="#6b5232" stroke-width="1"/><path d="M17 9v9l6 4" stroke="#6b5232" stroke-width="1.5" stroke-linecap="round"/></svg>
       <h4>교통 및 주차</h4>
       <p>지하철 2호선 강남역 3번 출구 도보 5분.
 건물 내 하객 전용 주차장 2시간 무료 지원되나 주말에 혼잡할 수 있어 가급적 대중교통 이용을 권장드립니다.</p>
     </div>
     <div class="detail-card" data-reveal>
-      <svg class="detail-icon" viewBox="0 0 34 34" fill="none">
-        <circle cx="17" cy="17" r="16" stroke="#c9a878" stroke-width="1"/>
-        <path d="M11 17l4 4 8-8" stroke="#c9a878" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+      <svg class="detail-icon" viewBox="0 0 34 34" fill="none"><circle cx="17" cy="17" r="16" stroke="#6b5232" stroke-width="1"/><path d="M11 17l4 4 8-8" stroke="#6b5232" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <h4>마음 전하실 곳</h4>
       <p>신랑 카카오뱅크 3333-00-123456
 신부 국민은행 000-000000-00
@@ -660,10 +524,7 @@ footer {
     <h2 class="section-title" data-reveal>참석 여부 알리기</h2>
     <div class="rsvp-card" data-reveal>
       <form id="rsvpForm">
-        <div class="form-group">
-          <label class="form-label">성함</label>
-          <input type="text" class="form-control" required placeholder="성함을 입력해주세요">
-        </div>
+        <div class="form-group"><label class="form-label">성함</label><input type="text" class="form-control" required placeholder="성함을 입력해주세요"></div>
         <div class="form-group">
           <label class="form-label">참석 여부</label>
           <select class="form-control" required>
@@ -673,11 +534,7 @@ footer {
         </div>
         <div class="form-group">
           <label class="form-label">동반 인원 (본인 포함)</label>
-          <select class="form-control">
-            <option>1명</option>
-            <option>2명</option>
-            <option>3명 이상</option>
-          </select>
+          <select class="form-control"><option>1명</option><option>2명</option><option>3명 이상</option></select>
         </div>
         <button type="submit" class="submit-btn">참석 정보 전송하기</button>
       </form>
@@ -688,11 +545,7 @@ footer {
 <!-- FOOTER -->
 <footer>
   <div class="footer-floral">
-    <svg width="120" height="50" viewBox="0 0 120 50" fill="none">
-      <path d="M60 25 Q45 8 20 16 Q36 18 44 25 Q36 32 20 36 Q45 44 60 25Z" fill="white" opacity="0.5"/>
-      <path d="M60 25 Q75 8 100 16 Q84 18 76 25 Q84 32 100 36 Q75 44 60 25Z" fill="white" opacity="0.5"/>
-      <circle cx="60" cy="25" r="4" fill="white" opacity="0.6"/>
-    </svg>
+    <svg width="120" height="50" viewBox="0 0 120 50" fill="none"><path d="M60 25 Q45 8 20 16 Q36 18 44 25 Q36 32 20 36 Q45 44 60 25Z" fill="white" opacity="0.5"/><path d="M60 25 Q75 8 100 16 Q84 18 76 25 Q84 32 100 36 Q75 44 60 25Z" fill="white" opacity="0.5"/><circle cx="60" cy="25" r="4" fill="white" opacity="0.6"/></svg>
   </div>
   <span class="footer-script dynamic-names">건희 & 서연</span>
   <div class="footer-date-txt" id="footer-date">2026 · 10 · 17</div>
@@ -701,49 +554,29 @@ footer {
 </footer>
 
 <script>
-/* Admin */
+/* ── Admin ── */
 function toggleAdmin() { document.getElementById('admin-panel').classList.toggle('open'); }
-
-(function checkAdminUrl() {
+(function() {
   if (new URLSearchParams(window.location.search).get('mode') === 'admin')
     document.getElementById('admin-panel').classList.add('open');
 })();
 
-let heroImgData = "";
+let heroImgData = '';
 function loadHeroImg(e) {
   const r = new FileReader();
-  r.onload = () => {
-    heroImgData = r.result;
-    setHeroBg(heroImgData);
-  };
+  r.onload = () => { heroImgData = r.result; setHeroBg(heroImgData); };
   r.readAsDataURL(e.target.files[0]);
 }
-
 function setHeroBg(src) {
   document.getElementById('hero-bg').style.backgroundImage =
-    `linear-gradient(to bottom, rgba(250,248,244,0.04) 30%, rgba(250,248,244,0.82) 82%, #faf8f4 100%), url('${src}')`;
+    `linear-gradient(to bottom, rgba(245,240,232,0.04) 30%, rgba(245,240,232,0.84) 82%, #f5f0e8 100%), url('${src}')`;
 }
-
 function saveAdmin() {
-  const g = document.getElementById('adm-groom').value;
-  const b = document.getElementById('adm-bride').value;
-  const d = document.getElementById('adm-date').value;
-  const t = document.getElementById('adm-time').value;
-  const v = document.getElementById('adm-venue').value;
-  const a = document.getElementById('adm-addr').value;
-  localStorage.setItem('wd_groom', g);
-  localStorage.setItem('wd_bride', b);
-  localStorage.setItem('wd_date', d);
-  localStorage.setItem('wd_time', t);
-  localStorage.setItem('wd_venue', v);
-  localStorage.setItem('wd_addr', a);
+  const fields = {wd_groom:'adm-groom',wd_bride:'adm-bride',wd_date:'adm-date',wd_time:'adm-time',wd_venue:'adm-venue',wd_addr:'adm-addr'};
+  Object.entries(fields).forEach(([k,id]) => localStorage.setItem(k, document.getElementById(id).value));
   if (heroImgData) localStorage.setItem('wd_img', heroImgData);
-  applyData();
-  alert('설정이 반영되었습니다.');
-  toggleAdmin();
-  const url = new URL(window.location);
-  url.searchParams.delete('mode');
-  window.history.replaceState({}, '', url.pathname);
+  applyData(); alert('설정이 반영되었습니다.'); toggleAdmin();
+  const url = new URL(window.location); url.searchParams.delete('mode'); window.history.replaceState({}, '', url.pathname);
 }
 
 function applyData() {
@@ -756,35 +589,19 @@ function applyData() {
   const img = localStorage.getItem('wd_img');
 
   document.querySelectorAll('.dynamic-names').forEach(el => { el.textContent = `${g} & ${b}`; });
-
-  const heroNamesEl = document.getElementById('hero-names');
-  if (heroNamesEl) heroNamesEl.innerHTML = `${g}<span class="hero-amp">&amp;</span>${b}`;
-
-  const [y, m, dd] = d.split('-');
-  const [hh, mm] = t.split(':');
-  const hour = parseInt(hh);
-  const ampm = hour >= 12 ? '오후' : '오전';
-  const h12 = hour > 12 ? hour - 12 : hour;
-  const timeStr = mm !== '00' ? `${ampm} ${h12}시 ${mm}분` : `${ampm} ${h12}시`;
-
+  const heroEl = document.getElementById('hero-names');
+  if (heroEl) heroEl.innerHTML = `${g}<span class="hero-amp">&amp;</span>${b}`;
+  const [y,m,dd] = d.split('-');
+  const [hh,mm] = t.split(':');
+  const h = parseInt(hh), ampm = h >= 12 ? '오후':'오전', h12 = h > 12 ? h-12 : h;
+  const tstr = mm !== '00' ? `${ampm} ${h12}시 ${mm}분` : `${ampm} ${h12}시`;
   const metaEl = document.getElementById('hero-meta');
-  if (metaEl) metaEl.innerHTML =
-    `<span>${y}. ${m}. ${dd}</span><span class="hero-dot"></span><span>${timeStr}</span><span class="hero-dot"></span><span>${v}</span>`;
-
-  const joinDateEl = document.getElementById('join-date');
-  if (joinDateEl) joinDateEl.textContent = `${y}년 ${m}월 ${dd}일`;
-
-  const venueNameEl = document.getElementById('venue-name');
-  if (venueNameEl) venueNameEl.textContent = v;
-
-  const venueAddrEl = document.getElementById('venue-addr');
-  if (venueAddrEl) venueAddrEl.textContent = a;
-
-  const footerDateEl = document.getElementById('footer-date');
-  if (footerDateEl) footerDateEl.textContent = `${y} · ${m} · ${dd}`;
-
+  if (metaEl) metaEl.innerHTML = `<span>${y}. ${m}. ${dd}</span><span class="hero-dot"></span><span>${tstr}</span><span class="hero-dot"></span><span>${v}</span>`;
+  const joinEl = document.getElementById('join-date'); if (joinEl) joinEl.textContent = `${y}년 ${m}월 ${dd}일`;
+  const vnEl = document.getElementById('venue-name'); if (vnEl) vnEl.textContent = v;
+  const vaEl = document.getElementById('venue-addr'); if (vaEl) vaEl.textContent = a;
+  const ftEl = document.getElementById('footer-date'); if (ftEl) ftEl.textContent = `${y} · ${m} · ${dd}`;
   if (img) setHeroBg(img);
-
   document.getElementById('adm-groom').value = g;
   document.getElementById('adm-bride').value = b;
   document.getElementById('adm-date').value  = d;
@@ -794,99 +611,89 @@ function applyData() {
 }
 applyData();
 
-/* Confetti */
+/* ── Confetti ── */
 const canvas = document.getElementById('confetti-canvas');
 const ctx = canvas.getContext('2d');
 let particles = [];
-const COLORS = ['#f0e2e1','#dce8da','#f7ebd3','#ffffff','#c9a878','#d4a8a6'];
-
+const COLORS = ['#f0e2e1','#dce8da','#f7ebd3','#fff','#c9a878','#d4a8a6'];
 function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
-
+window.addEventListener('resize', resizeCanvas); resizeCanvas();
 class Particle {
   constructor() {
-    this.x = Math.random() * canvas.width;
-    this.y = Math.random() * -canvas.height - 10;
-    this.rot = Math.random() * 360;
-    this.rotSpd = Math.random() * 2 - 1;
-    this.size = Math.random() * 7 + 5;
-    this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
-    this.spd = Math.random() * 1.8 + 1.2;
-    this.wobble = Math.random() * 0.8;
-    this.circle = Math.random() > 0.5;
+    this.x = Math.random() * canvas.width; this.y = Math.random() * -canvas.height - 10;
+    this.rot = Math.random() * 360; this.rotSpd = Math.random() * 2 - 1;
+    this.size = Math.random() * 7 + 5; this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+    this.spd = Math.random() * 1.8 + 1.2; this.wobble = Math.random() * 0.8; this.circle = Math.random() > .5;
   }
   update() { this.y += this.spd; this.x += Math.sin(this.y / 28) * this.wobble; this.rot += this.rotSpd; }
   draw() {
     ctx.save(); ctx.translate(this.x, this.y); ctx.rotate(this.rot * Math.PI / 180); ctx.fillStyle = this.color;
-    if (this.circle) { ctx.beginPath(); ctx.arc(0, 0, this.size / 2, 0, Math.PI * 2); ctx.fill(); }
-    else { ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size * 0.5); }
+    if (this.circle) { ctx.beginPath(); ctx.arc(0,0,this.size/2,0,Math.PI*2); ctx.fill(); }
+    else { ctx.fillRect(-this.size/2,-this.size/2,this.size,this.size*.5); }
     ctx.restore();
   }
 }
-function initConfetti() { particles = []; for (let i = 0; i < 130; i++) particles.push(new Particle()); }
+function initConfetti() { particles = []; for (let i=0;i<130;i++) particles.push(new Particle()); }
 function animateConfetti() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
   let live = false;
-  particles.forEach(p => { p.update(); p.draw(); if (p.y < canvas.height + 20) live = true; });
+  particles.forEach(p => { p.update(); p.draw(); if (p.y < canvas.height+20) live = true; });
   if (live) requestAnimationFrame(animateConfetti);
 }
 
-/* Intro */
-document.getElementById('intro').addEventListener('click', function () {
+/* ── Intro ── */
+document.getElementById('intro').addEventListener('click', function() {
   this.classList.add('away');
-  setTimeout(() => { this.style.display = 'none'; initConfetti(); animateConfetti(); }, 1050);
+  setTimeout(() => { this.style.display='none'; initConfetti(); animateConfetti(); }, 1050);
 });
 
-/* Nav scroll border */
-window.addEventListener('scroll', () => {
-  document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 50);
-});
-
-/* Hero load animation */
+/* ── Hero load ── */
 window.addEventListener('load', () => { document.getElementById('hero').classList.add('loaded'); });
 
-/* Story stacking scroll */
-window.addEventListener('scroll', () => {
-  document.querySelectorAll('.story-card').forEach(card => {
-    const rect = card.getBoundingClientRect();
-    const top = parseInt(getComputedStyle(card).top) || 96;
-    if (rect.top <= top) {
-      const gone = top - rect.top;
-      const factor = Math.min(gone / 1400, 0.065);
-      card.style.transform = `scale(${1 - factor})`;
-      card.style.opacity   = Math.max(1 - gone / 2200, 0.25);
-      card.style.filter    = `blur(${Math.min(gone / 110, 3)}px)`;
-    } else {
-      card.style.transform = 'scale(1)';
-      card.style.opacity   = '1';
-      card.style.filter    = 'blur(0px)';
+/* ── Chapter scroll-in (IntersectionObserver) ── */
+const chapterObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      chapterObs.unobserve(e.target);
     }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.chapter').forEach(el => chapterObs.observe(el));
+
+/* ── Polaroid hover wobble ── */
+document.querySelectorAll('.p-stack').forEach(stack => {
+  stack.addEventListener('mouseenter', () => {
+    const front = stack.querySelector('.p-z4');
+    if (front) front.style.transform = 'rotate(2deg) translateY(-6px)';
+  });
+  stack.addEventListener('mouseleave', () => {
+    const front = stack.querySelector('.p-z4');
+    if (front) front.style.transform = '';
   });
 });
 
-/* Reveal on scroll */
-const io = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
+/* ── Generic reveal ── */
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); revealObs.unobserve(e.target); } });
 }, { threshold: 0.08 });
-document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+document.querySelectorAll('[data-reveal]').forEach(el => revealObs.observe(el));
 
-/* Countdown */
+/* ── Countdown ── */
 function tick() {
-  const d  = localStorage.getItem('wd_date') || '2026-10-17';
-  const t  = localStorage.getItem('wd_time') || '14:00';
+  const d = localStorage.getItem('wd_date') || '2026-10-17';
+  const t = localStorage.getItem('wd_time') || '14:00';
   const diff = new Date(`${d}T${t}:00+09:00`) - Date.now();
   if (diff <= 0) return;
-  document.getElementById('cd-d').textContent = String(Math.floor(diff / 86400000)).padStart(2,'0');
-  document.getElementById('cd-h').textContent = String(Math.floor((diff % 86400000) / 3600000)).padStart(2,'0');
-  document.getElementById('cd-m').textContent = String(Math.floor((diff % 3600000) / 60000)).padStart(2,'0');
-  document.getElementById('cd-s').textContent = String(Math.floor((diff % 60000) / 1000)).padStart(2,'0');
+  document.getElementById('cd-d').textContent = String(Math.floor(diff/86400000)).padStart(2,'0');
+  document.getElementById('cd-h').textContent = String(Math.floor((diff%86400000)/3600000)).padStart(2,'0');
+  document.getElementById('cd-m').textContent = String(Math.floor((diff%3600000)/60000)).padStart(2,'0');
+  document.getElementById('cd-s').textContent = String(Math.floor((diff%60000)/1000)).padStart(2,'0');
 }
 tick(); setInterval(tick, 1000);
 
-document.getElementById('rsvpForm').addEventListener('submit', function (e) {
-  e.preventDefault();
-  alert('참석 정보가 등록되었습니다.');
+document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+  e.preventDefault(); alert('참석 정보가 등록되었습니다.');
 });
 </script>
 </body>
