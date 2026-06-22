@@ -285,6 +285,76 @@ nav {
 .submit-btn:hover { background: var(--champagne); }
 .submit-btn:active { transform: scale(0.98); }
 
+/* ── CLIENTS MARQUEE ── */
+#clients {
+  background: var(--white);
+  padding: 72px 0;
+  overflow: hidden;
+  display: none; /* shown by JS when logos exist */
+}
+#clients .clients-header {
+  text-align: center; padding: 0 20px 48px;
+}
+.logo-marquee-outer {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+.logo-track {
+  display: flex; align-items: center;
+  gap: 64px; padding: 12px 32px;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+.logo-track:hover { animation-play-state: paused; }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.logo-img {
+  height: 44px; width: auto; max-width: 160px;
+  object-fit: contain; object-position: center;
+  filter: grayscale(100%); opacity: 0.45;
+  transition: filter 0.3s, opacity 0.3s;
+  flex-shrink: 0; user-select: none;
+}
+.logo-img:hover { filter: grayscale(0%); opacity: 1; }
+
+/* Admin: logo section */
+.admin-divider {
+  border: none; border-top: 1px solid var(--line);
+  margin: 24px 0;
+}
+.admin-sub { font-size: 13px; font-weight: 600; color: var(--dark); margin-bottom: 14px; display: block; }
+.logo-upload-btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; padding: 12px; border: 1.5px dashed var(--line);
+  border-radius: 10px; background: var(--ivory);
+  font-size: 13px; color: var(--mid); cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.logo-upload-btn:hover { border-color: var(--champagne); background: var(--cream); }
+.logo-upload-btn input { display: none; }
+.logo-admin-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 10px; margin-top: 14px;
+}
+.logo-thumb {
+  position: relative; background: var(--ivory);
+  border-radius: 8px; border: 1px solid var(--line);
+  padding: 10px; display: flex; align-items: center; justify-content: center;
+  aspect-ratio: 2/1;
+}
+.logo-thumb img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.logo-thumb-del {
+  position: absolute; top: -6px; right: -6px;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: #e05; color: white; border: none;
+  font-size: 12px; line-height: 20px; text-align: center;
+  cursor: pointer; display: none;
+}
+.logo-thumb:hover .logo-thumb-del { display: block; }
+
 /* ── FOOTER ── */
 footer { background: var(--dark); color: rgba(255,255,255,0.45); text-align: center; padding: 72px 20px; }
 .footer-script { font-family: var(--script); font-size: 1.8rem; font-weight: 100; letter-spacing: 0.22em; color: rgba(255,255,255,0.88); display: block; margin-bottom: 12px; }
@@ -326,6 +396,15 @@ footer { background: var(--dark); color: rgba(255,255,255,0.45); text-align: cen
   <div class="form-group"><label class="form-label">웨딩홀 주소</label><input type="text" id="adm-addr" class="form-control" value="서울특별시 강남구 테헤란로 123, 지하 1층"></div>
   <div class="form-group"><label class="form-label">메인 이미지</label><input type="file" id="adm-file" class="form-control" accept="image/*" onchange="loadHeroImg(event)"></div>
   <button class="submit-btn" style="margin-top:12px;" onclick="saveAdmin()">적용하기</button>
+
+  <hr class="admin-divider">
+  <span class="admin-sub">고객사 로고 관리</span>
+  <label class="logo-upload-btn">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+    로고 이미지 업로드 (복수 선택 가능)
+    <input type="file" id="logo-file-input" accept="image/*" multiple onchange="handleLogoUpload(event)">
+  </label>
+  <div class="logo-admin-grid" id="logo-admin-grid"></div>
 </div>
 
 <!-- ENVELOPE -->
@@ -465,6 +544,17 @@ footer { background: var(--dark); color: rgba(255,255,255,0.45); text-align: cen
     <div class="g-item" style="background-image:url('https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=500')"></div>
     <div class="g-item" style="background-image:url('https://images.unsplash.com/photo-1519225495810-7512c696505a?q=80&w=500')"></div>
     <div class="g-item wide" style="background-image:url('https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=900')"></div>
+  </div>
+</section>
+
+<!-- CLIENTS LOGO MARQUEE -->
+<section id="clients">
+  <div class="clients-header">
+    <span class="section-eye">Partners</span>
+    <h2 class="section-title" style="margin-bottom:0">함께하는 고객사</h2>
+  </div>
+  <div class="logo-marquee-outer">
+    <div class="logo-track" id="logo-track"></div>
   </div>
 </section>
 
@@ -658,6 +748,95 @@ const chapterObs = new IntersectionObserver(entries => {
 document.querySelectorAll('.chapter').forEach(el => chapterObs.observe(el));
 
 /* film-card hover handled by CSS */
+
+/* ── Client Logo Management ── */
+function getLogos() {
+  try { return JSON.parse(localStorage.getItem('wd_logos') || '[]'); } catch { return []; }
+}
+function saveLogos(arr) { localStorage.setItem('wd_logos', JSON.stringify(arr)); }
+
+/* Resize image to max 320×130 before storing (keeps localStorage lean) */
+function resizeLogo(file, cb) {
+  const img = new Image();
+  const url = URL.createObjectURL(file);
+  img.onload = () => {
+    const MAX_W = 320, MAX_H = 130;
+    let w = img.naturalWidth, h = img.naturalHeight;
+    if (w > MAX_W) { h = Math.round(h * MAX_W / w); w = MAX_W; }
+    if (h > MAX_H) { w = Math.round(w * MAX_H / h); h = MAX_H; }
+    const cv = document.createElement('canvas');
+    cv.width = w; cv.height = h;
+    cv.getContext('2d').drawImage(img, 0, 0, w, h);
+    URL.revokeObjectURL(url);
+    cb(cv.toDataURL('image/png'));
+  };
+  img.src = url;
+}
+
+function handleLogoUpload(e) {
+  const files = Array.from(e.target.files);
+  if (!files.length) return;
+  let pending = files.length;
+  const logos = getLogos();
+  files.forEach(file => {
+    resizeLogo(file, dataUrl => {
+      logos.push(dataUrl);
+      if (--pending === 0) {
+        saveLogos(logos);
+        renderAdminLogos();
+        buildMarquee();
+      }
+    });
+  });
+  e.target.value = ''; /* reset so same file can be re-added */
+}
+
+function removeLogo(idx) {
+  const logos = getLogos();
+  logos.splice(idx, 1);
+  saveLogos(logos);
+  renderAdminLogos();
+  buildMarquee();
+}
+
+function renderAdminLogos() {
+  const logos = getLogos();
+  const grid = document.getElementById('logo-admin-grid');
+  if (!grid) return;
+  grid.innerHTML = logos.map((src, i) => `
+    <div class="logo-thumb">
+      <img src="${src}" alt="logo ${i+1}">
+      <button class="logo-thumb-del" onclick="removeLogo(${i})" title="삭제">×</button>
+    </div>`).join('');
+}
+
+function buildMarquee() {
+  const logos = getLogos();
+  const section = document.getElementById('clients');
+  const track   = document.getElementById('logo-track');
+  if (!section || !track) return;
+
+  if (logos.length === 0) {
+    section.style.display = 'none';
+    return;
+  }
+
+  /* Duplicate list for seamless infinite loop */
+  const imgs = logos.map(src =>
+    `<img class="logo-img" src="${src}" alt="client logo" draggable="false">`
+  ).join('');
+  track.innerHTML = imgs + imgs; /* two copies */
+
+  /* Adjust speed based on number of logos */
+  const duration = Math.max(16, logos.length * 5);
+  track.style.animationDuration = `${duration}s`;
+
+  section.style.display = '';
+}
+
+/* Init logos on page load */
+renderAdminLogos();
+buildMarquee();
 
 /* ── Generic reveal ── */
 const revealObs = new IntersectionObserver(entries => {
