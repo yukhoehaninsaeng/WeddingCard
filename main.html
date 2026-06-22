@@ -246,7 +246,9 @@ nav {
   width: 44px; height: 44px; background: var(--white); border-radius: 50%;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: grid; place-items: center;
   cursor: pointer; font-size: 18px; border: 1px solid #eee;
+  opacity: 0.3; transition: opacity 0.3s;
 }
+.admin-toggle-trigger:hover { opacity: 1; }
 
 /* ════════════════════════
    REVEAL BASE ANIMATION
@@ -257,13 +259,10 @@ nav {
 </head>
 <body>
 
-<!-- 캔버스 효과 -->
 <canvas id="confetti-canvas"></canvas>
 
-<!-- 어드민 오픈 트리거 버튼 -->
 <div class="admin-toggle-trigger" onclick="toggleAdminPanel()">⚙️</div>
 
-<!-- ── 어드민 관리 패널 ── -->
 <div id="admin-panel">
   <button class="admin-close-btn" onclick="toggleAdminPanel()">×</button>
   <h3>초대장 실시간 정보 관리</h3>
@@ -298,7 +297,6 @@ nav {
   <button class="submit-btn" style="margin-top:10px;" onclick="saveAdminData()">초대장 정보 적용하기</button>
 </div>
 
-<!-- ── INTRO ENVELOPE ── -->
 <div id="intro" role="button" aria-label="클릭하여 초대장 열기">
   <div class="env-scene">
     <div class="env-bg"></div>
@@ -317,7 +315,6 @@ nav {
   </div>
 </div>
 
-<!-- ── NAV ── -->
 <nav>
   <a href="#hero" class="nav-name dynamic-names">건희 & 서연</a>
   <ul class="nav-links">
@@ -328,7 +325,6 @@ nav {
   <a href="#rsvp" class="nav-rsvp">참석알림</a>
 </nav>
 
-<!-- ── HERO ── -->
 <section id="hero">
   <div class="hero-photo" id="main-hero-bg"></div>
   <div class="hero-content">
@@ -340,7 +336,6 @@ nav {
   </div>
 </section>
 
-<!-- ── INVITATION BAND ── -->
 <div id="invite-band">
   <p class="invite-headline" data-reveal>
     햇살 좋은 날, 싱그러운 테라스에서<br>
@@ -349,12 +344,10 @@ nav {
   </p>
 </div>
 
-<!-- ── STORY (스크롤 겹침 레이아웃) ── -->
 <section id="story">
   <h2 class="section-title">Our Love Story</h2>
   
   <div class="story-container">
-    <!-- Chapter 1 -->
     <div class="story-card">
       <div class="story-img-grid">
         <div class="story-img" style="background-image:url('https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=600')"></div>
@@ -367,7 +360,6 @@ nav {
       </div>
     </div>
 
-    <!-- Chapter 2 -->
     <div class="story-card">
       <div class="story-img-grid">
         <div class="story-img" style="background-image:url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600')"></div>
@@ -380,7 +372,6 @@ nav {
       </div>
     </div>
 
-    <!-- Chapter 3 -->
     <div class="story-card">
       <div class="story-img-grid">
         <div class="story-img" style="background-image:url('https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?q=80&w=600')"></div>
@@ -395,7 +386,6 @@ nav {
   </div>
 </section>
 
-<!-- ── JOIN US ── -->
 <section id="join">
   <h2 class="section-title" id="join-display-date">2026년 10월 17일</h2>
   
@@ -413,7 +403,6 @@ nav {
   </div>
 </section>
 
-<!-- ── DETAILS ── -->
 <section id="details">
   <div class="details-grid">
     <div class="detail-item" data-reveal>
@@ -427,7 +416,6 @@ nav {
   </div>
 </section>
 
-<!-- ── RSVP ── -->
 <section id="rsvp">
   <div class="rsvp-box" data-reveal>
     <h2>참석 여부 알리기</h2>
@@ -462,10 +450,14 @@ function toggleAdminPanel() {
   document.getElementById('admin-panel').classList.toggle('open');
 }
 
-// URL 뒤에 /wcadmin 이나 #wcadmin이 감지되면 어드민 자동 오픈
-if(window.location.hash === '#wcadmin' || window.location.pathname.endsWith('/wcadmin')) {
-  setTimeout(toggleAdminPanel, 1000);
+// 주소창 뒤 해시(#wcadmin) 변화 감지 엔진 보완
+function checkHash() {
+  if(window.location.hash === '#wcadmin') {
+    document.getElementById('admin-panel').classList.add('open');
+  }
 }
+window.addEventListener('hashchange', checkHash);
+window.addEventListener('DOMContentLoaded', checkHash);
 
 // 어드민 이미지 업로드 핸들러 (Base64 변환 저장)
 let selectedImgData = "";
@@ -500,6 +492,9 @@ function saveAdminData() {
   applyDOMData();
   alert('설정이 실시간 반영되었습니다!');
   toggleAdminPanel();
+  
+  // 주소창 깔끔하게 해시 제거
+  history.replaceState(null, null, ' ');
 }
 
 function applyDOMData() {
