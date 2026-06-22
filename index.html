@@ -13,9 +13,9 @@ html { font-size: 16px; scroll-behavior: smooth; }
 :root {
   --black: #2d2a26;
   --white: #ffffff;
-  --cream: #faf6f0; /* 화사한 아이보리 */
-  --garden-green: #e2e9e1; /* 내추럴 가든 그린 */
-  --point-pink: #f4e3e1; /* 은은한 로즈 펫탈 */
+  --cream: #faf6f0;       /* 따스하고 화사한 아이보리 바탕 */
+  --garden-green: #e2e9e1; /* 내추럴 야외 가든 감성 브러시 톤 */
+  --point-pink: #f4e3e1;   /* 은은한 페탈 핑크 고유 색상 */
   --mid: #8a8076;
   --serif: 'Playfair Display', 'Noto Serif KR', Georgia, serif;
   --sans: 'Inter', 'Noto Serif KR', sans-serif;
@@ -147,7 +147,7 @@ nav {
 .hero-photo {
   position: absolute; inset: 0;
   background-size: cover; background-position: center;
-  background-image: linear-gradient(to bottom, rgba(250,246,240,0.2) 50%, rgba(250,246,240,0.95) 100%), url('https://images.unsplash.com/photo-1545232979-8bf34eb9757b?q=80&w=1600');
+  background-image: linear-gradient(to bottom, rgba(250,246,240,0.1) 40%, rgba(250,246,240,0.95) 100%), url('https://images.unsplash.com/photo-1545232979-8bf34eb9757b?q=80&w=1600');
   transition: background-image 0.3s ease;
 }
 .hero-content { position: relative; text-align: center; z-index: 1; padding: 0 20px; }
@@ -164,33 +164,38 @@ nav {
 .invite-headline strong { color: #c59390; font-weight: 400; }
 
 /* ════════════════════════
-   STORY SECTION (Stacking Animation)
+   STORY SECTION (Cordially-Style Sticky Card Stack)
 ════════════════════════ */
-#story { padding: 100px 0; background: var(--cream); }
+#story { padding: 120px 0; background: var(--cream); }
 .section-title { text-align: center; font-family: var(--serif); font-size: clamp(28px, 5vw, 42px); font-style: italic; margin-bottom: 60px; color: var(--black); }
-.story-container { max-width: 1000px; margin: 0 auto; padding: 0 20px; position: relative; }
+.story-container { max-width: 900px; margin: 0 auto; padding: 0 20px; position: relative; }
 
-/* 스크롤 시 카드가 겹쳐지는 Sticky 효과 구조 */
+/* 핵심 모션: 부드럽게 하나씩 상단에서 걸리며 포개어지는 메커니즘 */
 .story-card {
-  position: sticky; top: 120px;
-  background: var(--white); border-radius: 16px; padding: 40px; margin-bottom: 60px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-  display: grid; grid-template-columns: 1fr 1fr; gap: 4px; align-items: center;
-  transition: transform 0.5s, opacity 0.5s;
+  position: sticky; 
+  top: 100px; /* 고정 지점 지탱 */
+  background: var(--white); 
+  border-radius: 20px; 
+  padding: 50px; 
+  margin-bottom: 120px; /* 다음 카드 스크롤 확보 유격 */
+  box-shadow: 0 20px 50px rgba(45,42,38,0.06);
+  display: grid; 
+  grid-template-columns: 1.2fr 1fr; 
+  gap: 40px; 
+  align-items: center;
+  transform-origin: center top;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s;
 }
-.story-card:nth-child(1) { background: #fdfbf7; }
-.story-card:nth-child(2) { background: #f6faf5; }
-.story-card:nth-child(3) { background: #faf5f5; }
 
-.story-img-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-.story-img { width: 100%; aspect-ratio: 3/4; background: #e8e5e0; background-size: cover; background-position: center; border-radius: 4px; }
-.story-txt { padding: 20px 40px; }
-.story-txt h3 { font-family: var(--serif); font-size: 24px; margin-bottom: 15px; color: #4a4540; font-style: italic;}
-.story-txt p { font-size: 14px; line-height: 1.8; color: #6a6560; }
+.story-img-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.story-img { width: 100%; aspect-ratio: 3/4; background: #e8e5e0; background-size: cover; background-position: center; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+.story-txt { padding: 10px 0; }
+.story-txt h3 { font-family: var(--serif); font-size: 26px; margin-bottom: 20px; color: var(--black); font-style: italic; }
+.story-txt p { font-size: 14px; line-height: 1.9; color: #6a6560; word-break: keep-all; }
 
 @media(max-width: 768px) {
-  .story-card { grid-template-columns: 1fr; padding: 20px; top: 80px; }
-  .story-txt { padding: 20px 0 0 0; }
+  .story-card { grid-template-columns: 1fr; padding: 25px; top: 80px; gap: 20px; margin-bottom: 80px; }
+  .story-img-grid { gap: 6px; }
 }
 
 /* ════════════════════════
@@ -230,7 +235,7 @@ nav {
 .submit-btn:hover { background: #b07e7b; }
 
 /* ════════════════════════
-   ADMIN PANEL / 어드민 설정창
+   ADMIN PANEL / 어드민 설정창 (실시간 제어 전용)
 ════════════════════════ */
 #admin-panel {
   position: fixed; top: 0; right: -400px; width: 380px; height: 100vh;
@@ -356,7 +361,7 @@ nav {
       </div>
       <div class="story-txt">
         <h3>Chapter 1. 첫 만남</h3>
-        <p>따스한 바람이 불던 날, 우연을 가장한 필연처럼 서로의 눈에 띄었습니다. 함께 마시던 따뜻한 커피의 온도처럼 서로에게 은은하게 녹아들었습니다.</p>
+        <p>따스한 바람이 불던 날, 우연을 가장한 필연처럼 서로의 눈에 띄었습니다. 함께 마시던 커피의 향미처럼 서로에게 은은하게 녹아들었습니다.</p>
       </div>
     </div>
 
@@ -368,7 +373,7 @@ nav {
       </div>
       <div class="story-txt">
         <h3>Chapter 2. 일상의 축제</h3>
-        <p>야외 테라스에서 나누던 시시콜콜한 이야기들, 수많은 골목길을 나란히 걸으며 맞잡은 손의 온기가 모여 우리의 매일은 반짝이는 축제가 되었습니다.</p>
+        <p>야외 테라스에서 나누던 시시콜콜한 이야기들, 수많은 풍경들을 나란히 걸으며 맞잡은 손의 온기가 모여 우리의 매일은 반짝이는 축제가 되었습니다.</p>
       </div>
     </div>
 
@@ -379,7 +384,7 @@ nav {
         <div class="story-img" style="background-image:url('https://images.unsplash.com/photo-1519225495810-7512c696505a?q=80&w=600')"></div>
       </div>
       <div class="story-txt">
-        <h3>Chapter 3. 평생이라는 약속</h3>
+        <h3>Chapter 3. 같은 곳을 보며</h3>
         <p>“너와 함께라면 어떤 계절도 두렵지 않아.”<br>흩날리는 꽃가루처럼 화사한 축복 속에 평생을 함께할 약속의 장소로 귀한 분들을 모십니다.</p>
       </div>
     </div>
@@ -445,19 +450,18 @@ nav {
 </section>
 
 <script>
-/* ── 어드민 패널 토글 및 데이터 관리 ── */
+/* ── URL 파라미터 엔진 (?mode=admin 대응) ── */
 function toggleAdminPanel() {
   document.getElementById('admin-panel').classList.toggle('open');
 }
 
-// 주소창 뒤 해시(#wcadmin) 변화 감지 엔진 보완
-function checkHash() {
-  if(window.location.hash === '#wcadmin') {
+function checkAdminURL() {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('mode') === 'admin') {
     document.getElementById('admin-panel').classList.add('open');
   }
 }
-window.addEventListener('hashchange', checkHash);
-window.addEventListener('DOMContentLoaded', checkHash);
+window.addEventListener('DOMContentLoaded', checkAdminURL);
 
 // 어드민 이미지 업로드 핸들러 (Base64 변환 저장)
 let selectedImgData = "";
@@ -465,7 +469,7 @@ function loadMainImg(event) {
   const reader = new FileReader();
   reader.onload = function(){
     selectedImgData = reader.result;
-    document.getElementById('main-hero-bg').style.backgroundImage = `linear-gradient(to bottom, rgba(250,246,240,0.2) 50%, rgba(250,246,240,0.95) 100%), url('${selectedImgData}')`;
+    document.getElementById('main-hero-bg').style.backgroundImage = `linear-gradient(to bottom, rgba(250,246,240,0.1) 40%, rgba(250,246,240,0.95) 100%), url('${selectedImgData}')`;
   };
   reader.readAsDataURL(event.target.files[0]);
 }
@@ -490,11 +494,13 @@ function saveAdminData() {
   if(selectedImgData) localStorage.setItem('wd_img', selectedImgData);
   
   applyDOMData();
-  alert('설정이 실시간 반영되었습니다!');
+  alert('설정이 저장되었습니다.');
   toggleAdminPanel();
   
-  // 주소창 깔끔하게 해시 제거
-  history.replaceState(null, null, ' ');
+  // 주소창 파라미터 청소
+  const url = new URL(window.location);
+  url.searchParams.delete('mode');
+  window.history.replaceState({}, document.title, url.pathname);
 }
 
 function applyDOMData() {
@@ -506,7 +512,6 @@ function applyDOMData() {
   const addr = localStorage.getItem('wd_addr') || "서울특별시 강남구 테헤란로 123, 지하 1층";
   const img = localStorage.getItem('wd_img');
 
-  // DOM 반영
   document.querySelectorAll('.dynamic-names').forEach(el => el.textContent = `${groom} & ${bride}`);
   document.getElementById('hero-display-names').innerHTML = `${groom} <span class="amp">&</span> ${bride}`;
   document.getElementById('hero-display-meta').textContent = `${date.replace(/-/g, '.')} / ${time} / ${venue}`;
@@ -515,15 +520,12 @@ function applyDOMData() {
   document.getElementById('join-display-addr').textContent = addr;
   
   if(img) {
-    document.getElementById('main-hero-bg').style.backgroundImage = `linear-gradient(to bottom, rgba(250,246,240,0.2) 50%, rgba(250,246,240,0.95) 100%), url('${img}')`;
+    document.getElementById('main-hero-bg').style.backgroundImage = `linear-gradient(to bottom, rgba(250,246,240,0.1) 40%, rgba(250,246,240,0.95) 100%), url('${img}')`;
   }
 }
-
-// 로드 시 즉시 실행
 applyDOMData();
 
-
-/* ── 꽃가루(Confetti) 라이트 엔진 ── */
+/* ── 꽃가루(Confetti) 엔진 ── */
 const canvas = document.getElementById('confetti-canvas');
 const ctx = canvas.getContext('2d');
 let particles = [];
@@ -564,9 +566,7 @@ class Particle {
 
 function initConfetti() {
   particles = [];
-  for(let i=0; i<120; i++) {
-    particles.push(new Particle());
-  }
+  for(let i=0; i<100; i++) { particles.push(new Particle()); }
 }
 
 function animateConfetti() {
@@ -580,69 +580,63 @@ function animateConfetti() {
   if(live) requestAnimationFrame(animateConfetti);
 }
 
-function triggerConfettiEffect() {
-  initConfetti();
-  animateConfetti();
-}
-
-
-/* ── 스크롤 애니메이션 및 스태킹 디테일 제어 ── */
-const revealItems = document.querySelectorAll('[data-reveal]');
-const io = new IntersectionObserver((entries) => {
-  entries.forEach((e) => {
-    if (e.isIntersecting) {
-      e.target.classList.add('on');
+/* ── 스크롤 스태킹(Stacking) 정밀 물리 구현 ── */
+window.addEventListener('scroll', () => {
+  const cards = document.querySelectorAll('.story-card');
+  const triggerTop = 100; // 고정되는 위치 지점
+  
+  cards.forEach((card, index) => {
+    const rect = card.getBoundingClientRect();
+    
+    if (rect.top <= triggerTop) {
+      // 상단 임계점에 닿았을 때 미세하게 스케일 다운 및 투명도 조절로 뒤로 쌓이는 입체감 형성
+      const scrolledAmount = triggerTop - rect.top;
+      const factor = Math.min(scrolledAmount / 1200, 0.1); 
+      const scale = 1 - factor;
+      const opacity = 1 - (scrolledAmount / 2000);
+      
+      card.style.transform = `scale(${scale})`;
+      card.style.opacity = `${opacity}`;
+    } else {
+      card.style.transform = `scale(1)`;
+      card.style.opacity = `1`;
     }
   });
+});
+
+/* ── 기본 스크롤 리빌 ── */
+const revealItems = document.querySelectorAll('[data-reveal]');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('on'); });
 }, { threshold: 0.1 });
 revealItems.forEach(el => io.observe(el));
 
-// 스크롤 시 겹쳐지는 인터랙션 보정 효과
-window.addEventListener('scroll', () => {
-  const cards = document.querySelectorAll('.story-card');
-  cards.forEach((card, index) => {
-    const rect = card.getBoundingClientRect();
-    if (rect.top <= 130 && rect.top > 0) {
-      let scaleValue = 1 - ( (130 - rect.top) / 1500 );
-      card.style.transform = `scale(${scaleValue})`;
-    } else if (rect.top > 130) {
-      card.style.transform = `scale(1)`;
-    }
-  });
-});
-
-
-/* ── 인트로 오픈 액션 ── */
-const intro = document.getElementById('intro');
-intro.addEventListener('click', () => {
-  intro.classList.add('away');
+/* ── 인트로 제거 및 애니메이션 방출 ── */
+document.getElementById('intro').addEventListener('click', function() {
+  this.classList.add('away');
   setTimeout(() => {
-    intro.style.display = 'none';
-    triggerConfettiEffect(); // 인트로 열리면 꽃가루 펑!
+    this.style.display = 'none';
+    initConfetti();
+    animateConfetti();
   }, 1050);
 });
 
-
-/* ── 타이머 엔진 ── */
+/* ── 디데이 엔진 ── */
 function tick() {
   const targetDateStr = `${localStorage.getItem('wd_date') || "2026-10-17"}T${localStorage.getItem('wd_time') || "14:00"}:00+09:00`;
   const wedding = new Date(targetDateStr);
   const diff = wedding - Date.now();
   if (diff <= 0) return;
-  const d = Math.floor(diff / 86400000);
-  const h = Math.floor((diff % 86400000) / 3600000);
-  const m = Math.floor((diff % 3600000) / 60000);
-  const s = Math.floor((diff % 60000) / 1000);
-  document.getElementById('cd-d').textContent = String(d).padStart(2,'0');
-  document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
-  document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
-  document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+  document.getElementById('cd-d').textContent = String(Math.floor(diff / 86400000)).padStart(2,'0');
+  document.getElementById('cd-h').textContent = String(Math.floor((diff % 86400000) / 3600000)).padStart(2,'0');
+  document.getElementById('cd-m').textContent = String(Math.floor((diff % 3600000) / 60000)).padStart(2,'0');
+  document.getElementById('cd-s').textContent = String(Math.floor((diff % 60000) / 1000)).padStart(2,'0');
 }
 tick(); setInterval(tick, 1000);
 
 document.getElementById('rsvpForm').addEventListener('submit', function(e) {
   e.preventDefault();
-  alert('참석 정보가 전달되었습니다. 감사합니다.');
+  alert('참석 정보가 정상 등록되었습니다.');
 });
 </script>
 </body>
