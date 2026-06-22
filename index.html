@@ -377,6 +377,51 @@ footer { background: var(--dark); color: rgba(255,255,255,0.45); text-align: cen
 
 [data-reveal] { opacity: 0; transform: translateY(22px); transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1), transform 0.8s cubic-bezier(0.4,0,0.2,1); }
 [data-reveal].on { opacity: 1; transform: translateY(0); }
+
+/* ── VISION ── */
+#vision { background: var(--white); padding: 100px 20px; display: none; }
+.vision-grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+.vision-card { background: var(--ivory); border-radius: 18px; padding: 36px; border: 1px solid var(--line); }
+.vision-card-title { font-family: var(--serif); font-size: 18px; font-weight: 600; color: var(--dark); margin-bottom: 12px; }
+.vision-card-desc { font-size: 14px; line-height: 1.9; color: var(--mid); }
+
+/* ── BUMJIN ── */
+#bumjin { background: var(--ivory); padding: 100px 20px; display: none; }
+.bumjin-list-el { max-width: 820px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+.bumjin-item { background: var(--white); border-radius: 14px; padding: 28px 32px; border: 1px solid var(--line); display: flex; gap: 20px; align-items: flex-start; }
+.bumjin-num { font-size: 28px; font-weight: 100; color: var(--champagne); line-height: 1; min-width: 36px; font-family: var(--display); }
+.bumjin-body h4 { font-size: 16px; font-weight: 600; color: var(--dark); margin-bottom: 8px; font-family: var(--serif); }
+.bumjin-body p { font-size: 14px; line-height: 1.9; color: var(--mid); }
+
+/* ── HISTORY ── */
+#history { background: var(--white); padding: 100px 20px; display: none; }
+.history-timeline { max-width: 680px; margin: 0 auto; position: relative; padding-left: 40px; }
+.history-timeline::before { content: ''; position: absolute; left: 4px; top: 8px; bottom: 8px; width: 1px; background: var(--line); }
+.history-entry { position: relative; margin-bottom: 40px; }
+.history-entry::before { content: ''; position: absolute; left: -44px; top: 5px; width: 9px; height: 9px; border-radius: 50%; background: var(--champagne); border: 2px solid var(--white); box-shadow: 0 0 0 1px var(--champagne); }
+.history-year { font-family: var(--display); font-size: 13px; font-weight: 700; color: var(--champagne); letter-spacing: 0.06em; margin-bottom: 4px; }
+.history-event { font-size: 14px; line-height: 1.8; color: var(--mid); }
+
+/* ── MULTI LOCATION ── */
+#locations-container { width: 100%; }
+.locations-grid { max-width: 920px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+.location-card { background: var(--ivory); padding: 36px; border-radius: 18px; border: 1px solid var(--line); text-align: center; }
+.location-company { font-family: var(--serif); font-size: 16px; font-weight: 600; color: var(--dark); margin-bottom: 8px; }
+.location-addr { color: var(--mid); font-size: 13px; line-height: 1.8; margin-bottom: 20px; }
+
+/* ── ADMIN ITEM CONTROLS ── */
+.admin-item { background: var(--ivory); border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; }
+.admin-item-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.admin-item-title { font-weight: 600; color: var(--dark); font-size: 12px; }
+.admin-item-desc { color: var(--mid); font-size: 11px; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px; }
+.admin-item-btns { display: flex; gap: 4px; flex-shrink: 0; }
+.admin-btn-sm { background: none; border: 1px solid var(--line); border-radius: 5px; padding: 3px 8px; font-size: 10px; cursor: pointer; color: var(--mid); font-family: var(--sans); transition: all 0.2s; }
+.admin-btn-sm:hover { border-color: var(--champagne); color: var(--champagne); }
+.admin-btn-sm.del:hover { border-color: #e05; color: #e05; }
+.admin-add-row { display: flex; gap: 6px; margin-bottom: 8px; }
+.admin-inp { font-size: 12px !important; padding: 8px 10px !important; margin-bottom: 6px; }
+.admin-full-btn { width: 100%; padding: 8px; background: var(--dark); color: white; border: none; border-radius: 7px; font-size: 11px; cursor: pointer; margin-bottom: 12px; letter-spacing: 0.05em; font-family: var(--sans); }
+.admin-full-btn:hover { background: var(--champagne); }
 </style>
 </head>
 <body>
@@ -405,6 +450,37 @@ footer { background: var(--dark); color: rgba(255,255,255,0.45); text-align: cen
     <input type="file" id="logo-file-input" accept="image/*" multiple onchange="handleLogoUpload(event)">
   </label>
   <div class="logo-admin-grid" id="logo-admin-grid"></div>
+
+  <hr class="admin-divider">
+  <span class="admin-sub">비전 관리</span>
+  <input id="vision-title-inp" class="form-control admin-inp" placeholder="비전 항목 제목">
+  <textarea id="vision-desc-inp" class="form-control admin-inp" rows="2" placeholder="비전 설명" style="resize:vertical"></textarea>
+  <button class="admin-full-btn" onclick="addVisionItem()">+ 항목 추가</button>
+  <div id="vision-admin-list"></div>
+
+  <hr class="admin-divider">
+  <span class="admin-sub">범진 관리</span>
+  <input id="bumjin-title-inp" class="form-control admin-inp" placeholder="제목">
+  <textarea id="bumjin-desc-inp" class="form-control admin-inp" rows="2" placeholder="내용" style="resize:vertical"></textarea>
+  <button class="admin-full-btn" onclick="addBumjinItem()">+ 항목 추가</button>
+  <div id="bumjin-admin-list"></div>
+
+  <hr class="admin-divider">
+  <span class="admin-sub">연혁 관리</span>
+  <div class="admin-add-row">
+    <input id="history-year-inp" class="form-control admin-inp" placeholder="연도 (예: 2023)" style="width:110px;flex-shrink:0">
+    <input id="history-event-inp" class="form-control admin-inp" placeholder="내용">
+  </div>
+  <button class="admin-full-btn" onclick="addHistoryEntry()">+ 연혁 추가</button>
+  <div id="history-admin-list"></div>
+
+  <hr class="admin-divider">
+  <span class="admin-sub">찾아오시는 길 관리</span>
+  <input id="loc-name-inp" class="form-control admin-inp" placeholder="회사/장소명">
+  <input id="loc-addr-inp" class="form-control admin-inp" placeholder="주소">
+  <input id="loc-map-inp" class="form-control admin-inp" placeholder="지도 URL (선택)">
+  <button class="admin-full-btn" onclick="addLocation()">+ 장소 추가</button>
+  <div id="location-admin-list"></div>
 </div>
 
 <!-- ENVELOPE -->
@@ -473,6 +549,20 @@ footer { background: var(--dark); color: rgba(255,255,255,0.45); text-align: cen
     <div class="b-line b-line-r"></div>
   </div>
 </div>
+
+<!-- VISION -->
+<section id="vision">
+  <span class="section-eye" data-reveal>Vision</span>
+  <h2 class="section-title" data-reveal>비전</h2>
+  <div class="vision-grid" id="vision-grid-el"></div>
+</section>
+
+<!-- BUMJIN -->
+<section id="bumjin">
+  <span class="section-eye" data-reveal>Service</span>
+  <h2 class="section-title" data-reveal>범진</h2>
+  <div class="bumjin-list-el" id="bumjin-list-el"></div>
+</section>
 
 <!-- ═══ STORY ═══ -->
 <section id="story">
@@ -547,6 +637,13 @@ footer { background: var(--dark); color: rgba(255,255,255,0.45); text-align: cen
   </div>
 </section>
 
+<!-- HISTORY -->
+<section id="history">
+  <span class="section-eye" data-reveal>History</span>
+  <h2 class="section-title" data-reveal>연혁</h2>
+  <div class="history-timeline" id="history-timeline-el"></div>
+</section>
+
 <!-- CLIENTS LOGO MARQUEE -->
 <section id="clients">
   <div class="clients-header">
@@ -571,14 +668,7 @@ footer { background: var(--dark); color: rgba(255,255,255,0.45); text-align: cen
     <span class="cd-sep">·</span>
     <div class="cd-unit"><span class="cd-num" id="cd-s">00</span><span class="cd-label">Secs</span></div>
   </div>
-  <div class="venue-card" data-reveal>
-    <p class="venue-name" id="venue-name">더 파티하우스 그랜드볼룸</p>
-    <p class="venue-addr" id="venue-addr">서울특별시 강남구 테헤란로 123, 지하 1층</p>
-    <a href="https://maps.google.com" target="_blank" rel="noopener" class="map-btn">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-      지도 보기
-    </a>
-  </div>
+  <div id="locations-container" data-reveal></div>
 </section>
 
 <!-- DETAILS -->
@@ -684,10 +774,9 @@ function applyData() {
   const metaEl = document.getElementById('hero-meta');
   if (metaEl) metaEl.innerHTML = `<span>${y}. ${m}. ${dd}</span><span class="hero-dot"></span><span>${tstr}</span><span class="hero-dot"></span><span>${v}</span>`;
   const joinEl = document.getElementById('join-date'); if (joinEl) joinEl.textContent = `${y}년 ${m}월 ${dd}일`;
-  const vnEl = document.getElementById('venue-name'); if (vnEl) vnEl.textContent = v;
-  const vaEl = document.getElementById('venue-addr'); if (vaEl) vaEl.textContent = a;
   const ftEl = document.getElementById('footer-date'); if (ftEl) ftEl.textContent = `${y} · ${m} · ${dd}`;
   if (img) setHeroBg(img);
+  buildLocationsPage();
   document.getElementById('adm-groom').value = g;
   document.getElementById('adm-bride').value = b;
   document.getElementById('adm-date').value  = d;
@@ -837,6 +926,276 @@ function buildMarquee() {
 /* Init logos on page load */
 renderAdminLogos();
 buildMarquee();
+
+/* ── HTML escape helper ── */
+function escHtml(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* ════════════════════════════════════
+   VISION (비전)
+════════════════════════════════════ */
+function getVision() { try { return JSON.parse(localStorage.getItem('wd_vision') || '[]'); } catch { return []; } }
+function saveVision(arr) { localStorage.setItem('wd_vision', JSON.stringify(arr)); }
+
+function addVisionItem() {
+  const title = document.getElementById('vision-title-inp').value.trim();
+  const desc  = document.getElementById('vision-desc-inp').value.trim();
+  if (!title) { alert('제목을 입력해주세요.'); return; }
+  const items = getVision(); items.push({ title, desc });
+  saveVision(items);
+  document.getElementById('vision-title-inp').value = '';
+  document.getElementById('vision-desc-inp').value = '';
+  renderAdminVision(); buildVisionPage();
+}
+function deleteVisionItem(idx) {
+  const items = getVision(); items.splice(idx, 1);
+  saveVision(items); renderAdminVision(); buildVisionPage();
+}
+function editVisionItem(idx) {
+  const item = getVision()[idx];
+  const el = document.getElementById(`vision-adm-${idx}`);
+  el.innerHTML = `
+    <input class="form-control admin-inp" id="vedit-t-${idx}" value="${escHtml(item.title)}">
+    <textarea class="form-control admin-inp" id="vedit-d-${idx}" rows="2" style="resize:vertical">${escHtml(item.desc)}</textarea>
+    <div style="display:flex;gap:6px;margin-top:4px">
+      <button class="admin-btn-sm" onclick="saveVisionEdit(${idx})">저장</button>
+      <button class="admin-btn-sm" onclick="renderAdminVision()">취소</button>
+    </div>`;
+}
+function saveVisionEdit(idx) {
+  const items = getVision();
+  items[idx].title = document.getElementById(`vedit-t-${idx}`).value.trim();
+  items[idx].desc  = document.getElementById(`vedit-d-${idx}`).value.trim();
+  saveVision(items); renderAdminVision(); buildVisionPage();
+}
+function renderAdminVision() {
+  const items = getVision();
+  const list = document.getElementById('vision-admin-list'); if (!list) return;
+  list.innerHTML = items.map((item, i) => `
+    <div class="admin-item" id="vision-adm-${i}">
+      <div class="admin-item-header">
+        <div><div class="admin-item-title">${escHtml(item.title)}</div><div class="admin-item-desc">${escHtml(item.desc)}</div></div>
+        <div class="admin-item-btns">
+          <button class="admin-btn-sm" onclick="editVisionItem(${i})">수정</button>
+          <button class="admin-btn-sm del" onclick="deleteVisionItem(${i})">삭제</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+function buildVisionPage() {
+  const items = getVision();
+  const section = document.getElementById('vision');
+  const grid    = document.getElementById('vision-grid-el');
+  if (!section || !grid) return;
+  section.style.display = items.length ? '' : 'none';
+  grid.innerHTML = items.map(item => `
+    <div class="vision-card">
+      <div class="vision-card-title">${escHtml(item.title)}</div>
+      <div class="vision-card-desc">${escHtml(item.desc)}</div>
+    </div>`).join('');
+}
+
+/* ════════════════════════════════════
+   BUMJIN (범진)
+════════════════════════════════════ */
+function getBumjin() { try { return JSON.parse(localStorage.getItem('wd_bumjin') || '[]'); } catch { return []; } }
+function saveBumjin(arr) { localStorage.setItem('wd_bumjin', JSON.stringify(arr)); }
+
+function addBumjinItem() {
+  const title = document.getElementById('bumjin-title-inp').value.trim();
+  const desc  = document.getElementById('bumjin-desc-inp').value.trim();
+  if (!title) { alert('제목을 입력해주세요.'); return; }
+  const items = getBumjin(); items.push({ title, desc });
+  saveBumjin(items);
+  document.getElementById('bumjin-title-inp').value = '';
+  document.getElementById('bumjin-desc-inp').value = '';
+  renderAdminBumjin(); buildBumjinPage();
+}
+function deleteBumjinItem(idx) {
+  const items = getBumjin(); items.splice(idx, 1);
+  saveBumjin(items); renderAdminBumjin(); buildBumjinPage();
+}
+function editBumjinItem(idx) {
+  const item = getBumjin()[idx];
+  const el = document.getElementById(`bumjin-adm-${idx}`);
+  el.innerHTML = `
+    <input class="form-control admin-inp" id="bedit-t-${idx}" value="${escHtml(item.title)}">
+    <textarea class="form-control admin-inp" id="bedit-d-${idx}" rows="2" style="resize:vertical">${escHtml(item.desc)}</textarea>
+    <div style="display:flex;gap:6px;margin-top:4px">
+      <button class="admin-btn-sm" onclick="saveBumjinEdit(${idx})">저장</button>
+      <button class="admin-btn-sm" onclick="renderAdminBumjin()">취소</button>
+    </div>`;
+}
+function saveBumjinEdit(idx) {
+  const items = getBumjin();
+  items[idx].title = document.getElementById(`bedit-t-${idx}`).value.trim();
+  items[idx].desc  = document.getElementById(`bedit-d-${idx}`).value.trim();
+  saveBumjin(items); renderAdminBumjin(); buildBumjinPage();
+}
+function renderAdminBumjin() {
+  const items = getBumjin();
+  const list = document.getElementById('bumjin-admin-list'); if (!list) return;
+  list.innerHTML = items.map((item, i) => `
+    <div class="admin-item" id="bumjin-adm-${i}">
+      <div class="admin-item-header">
+        <div><div class="admin-item-title">${escHtml(item.title)}</div><div class="admin-item-desc">${escHtml(item.desc)}</div></div>
+        <div class="admin-item-btns">
+          <button class="admin-btn-sm" onclick="editBumjinItem(${i})">수정</button>
+          <button class="admin-btn-sm del" onclick="deleteBumjinItem(${i})">삭제</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+function buildBumjinPage() {
+  const items = getBumjin();
+  const section = document.getElementById('bumjin');
+  const listEl  = document.getElementById('bumjin-list-el');
+  if (!section || !listEl) return;
+  section.style.display = items.length ? '' : 'none';
+  listEl.innerHTML = items.map((item, i) => `
+    <div class="bumjin-item">
+      <div class="bumjin-num">${String(i + 1).padStart(2, '0')}</div>
+      <div class="bumjin-body">
+        <h4>${escHtml(item.title)}</h4>
+        <p>${escHtml(item.desc)}</p>
+      </div>
+    </div>`).join('');
+}
+
+/* ════════════════════════════════════
+   HISTORY (연혁)
+════════════════════════════════════ */
+function getHistory() { try { return JSON.parse(localStorage.getItem('wd_history') || '[]'); } catch { return []; } }
+function saveHistory(arr) { localStorage.setItem('wd_history', JSON.stringify(arr)); }
+
+function addHistoryEntry() {
+  const year  = document.getElementById('history-year-inp').value.trim();
+  const event = document.getElementById('history-event-inp').value.trim();
+  if (!year || !event) { alert('연도와 내용을 모두 입력해주세요.'); return; }
+  const entries = getHistory();
+  entries.push({ year, event });
+  entries.sort((a, b) => b.year.localeCompare(a.year));
+  saveHistory(entries);
+  document.getElementById('history-year-inp').value = '';
+  document.getElementById('history-event-inp').value = '';
+  renderAdminHistory(); buildHistoryPage();
+}
+function deleteHistoryEntry(idx) {
+  const entries = getHistory(); entries.splice(idx, 1);
+  saveHistory(entries); renderAdminHistory(); buildHistoryPage();
+}
+function editHistoryEntry(idx) {
+  const entry = getHistory()[idx];
+  const el = document.getElementById(`hist-adm-${idx}`);
+  el.innerHTML = `
+    <div style="display:flex;gap:6px">
+      <input class="form-control admin-inp" id="hedit-y-${idx}" value="${escHtml(entry.year)}" style="width:100px;flex-shrink:0">
+      <input class="form-control admin-inp" id="hedit-e-${idx}" value="${escHtml(entry.event)}">
+    </div>
+    <div style="display:flex;gap:6px;margin-top:4px">
+      <button class="admin-btn-sm" onclick="saveHistoryEdit(${idx})">저장</button>
+      <button class="admin-btn-sm" onclick="renderAdminHistory()">취소</button>
+    </div>`;
+}
+function saveHistoryEdit(idx) {
+  const entries = getHistory();
+  entries[idx].year  = document.getElementById(`hedit-y-${idx}`).value.trim();
+  entries[idx].event = document.getElementById(`hedit-e-${idx}`).value.trim();
+  saveHistory(entries); renderAdminHistory(); buildHistoryPage();
+}
+function renderAdminHistory() {
+  const entries = getHistory();
+  const list = document.getElementById('history-admin-list'); if (!list) return;
+  list.innerHTML = entries.map((entry, i) => `
+    <div class="admin-item" id="hist-adm-${i}">
+      <div class="admin-item-header">
+        <div><div class="admin-item-title">${escHtml(entry.year)}</div><div class="admin-item-desc">${escHtml(entry.event)}</div></div>
+        <div class="admin-item-btns">
+          <button class="admin-btn-sm" onclick="editHistoryEntry(${i})">수정</button>
+          <button class="admin-btn-sm del" onclick="deleteHistoryEntry(${i})">삭제</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+function buildHistoryPage() {
+  const entries = getHistory();
+  const section  = document.getElementById('history');
+  const timeline = document.getElementById('history-timeline-el');
+  if (!section || !timeline) return;
+  section.style.display = entries.length ? '' : 'none';
+  timeline.innerHTML = entries.map(entry => `
+    <div class="history-entry">
+      <div class="history-year">${escHtml(entry.year)}</div>
+      <div class="history-event">${escHtml(entry.event)}</div>
+    </div>`).join('');
+}
+
+/* ════════════════════════════════════
+   LOCATIONS (찾아오시는 길)
+════════════════════════════════════ */
+function getLocations() { try { return JSON.parse(localStorage.getItem('wd_locations') || '[]'); } catch { return []; } }
+function saveLocations(arr) { localStorage.setItem('wd_locations', JSON.stringify(arr)); }
+
+function addLocation() {
+  const name   = document.getElementById('loc-name-inp').value.trim();
+  const addr   = document.getElementById('loc-addr-inp').value.trim();
+  const mapUrl = document.getElementById('loc-map-inp').value.trim();
+  if (!name || !addr) { alert('장소명과 주소를 입력해주세요.'); return; }
+  const locs = getLocations();
+  locs.push({ name, addr, mapUrl: mapUrl || 'https://maps.google.com' });
+  saveLocations(locs);
+  document.getElementById('loc-name-inp').value = '';
+  document.getElementById('loc-addr-inp').value = '';
+  document.getElementById('loc-map-inp').value  = '';
+  renderAdminLocations(); buildLocationsPage();
+}
+function deleteLocation(idx) {
+  const locs = getLocations(); locs.splice(idx, 1);
+  saveLocations(locs); renderAdminLocations(); buildLocationsPage();
+}
+function renderAdminLocations() {
+  const locs = getLocations();
+  const list = document.getElementById('location-admin-list'); if (!list) return;
+  list.innerHTML = locs.map((loc, i) => `
+    <div class="admin-item">
+      <div class="admin-item-header">
+        <div><div class="admin-item-title">${escHtml(loc.name)}</div><div class="admin-item-desc">${escHtml(loc.addr)}</div></div>
+        <div class="admin-item-btns">
+          <button class="admin-btn-sm del" onclick="deleteLocation(${i})">삭제</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+function buildLocationsPage() {
+  const locs = getLocations();
+  const container = document.getElementById('locations-container'); if (!container) return;
+  const mapIcon = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`;
+  if (locs.length === 0) {
+    const v = localStorage.getItem('wd_venue') || '더 파티하우스 그랜드볼룸';
+    const a = localStorage.getItem('wd_addr')  || '서울특별시 강남구 테헤란로 123, 지하 1층';
+    container.innerHTML = `
+      <div class="venue-card">
+        <p class="venue-name">${escHtml(v)}</p>
+        <p class="venue-addr">${escHtml(a)}</p>
+        <a href="https://maps.google.com" target="_blank" rel="noopener" class="map-btn">${mapIcon} 지도 보기</a>
+      </div>`;
+  } else {
+    const cards = locs.map(loc => `
+      <div class="location-card">
+        <div class="location-company">${escHtml(loc.name)}</div>
+        <div class="location-addr">${escHtml(loc.addr)}</div>
+        <a href="${escHtml(loc.mapUrl)}" target="_blank" rel="noopener" class="map-btn">${mapIcon} 지도 보기</a>
+      </div>`).join('');
+    container.innerHTML = `<div class="locations-grid">${cards}</div>`;
+  }
+}
+
+/* Init new sections */
+renderAdminVision();   buildVisionPage();
+renderAdminBumjin();   buildBumjinPage();
+renderAdminHistory();  buildHistoryPage();
+renderAdminLocations(); buildLocationsPage();
 
 /* ── Generic reveal ── */
 const revealObs = new IntersectionObserver(entries => {
